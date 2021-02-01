@@ -1,0 +1,12 @@
+.spinner {
+  font-size: 2rem;
+
+  @include heading();
+
+  margin-bottom: 1rem;
+
+  i {
+    font-size: 3rem;
+    margin-bottom: .5rem;
+  }
+}

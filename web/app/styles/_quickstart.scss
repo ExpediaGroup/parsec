@@ -1,0 +1,6 @@
+.page-quickstart {
+
+  @include outer-container(100%);
+  @include responsive-pad();
+
+}

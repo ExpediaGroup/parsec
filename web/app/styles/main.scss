@@ -1,0 +1,119 @@
+/* Bourbon */
+@import '../../bower_components/bourbon/app/assets/stylesheets/bourbon';
+
+/* Bitters (modified) */
+@import 'bitters';
+
+//$visual-grid: true;
+
+/* Neat */
+@import '../../bower_components/neat/app/assets/stylesheets/neat';
+
+/* Variables */
+@import 'variables';
+
+/* Control styles */
+@import 'components/badge';
+@import 'components/bullets';
+@import 'components/button';
+@import 'components/crunchEditor';
+@import 'components/examplequery';
+@import "components/flash";
+@import "components/hero";
+@import "components/panel";
+@import "components/parsecEditor";
+@import "components/referenceToken";
+@import "components/searchBar";
+@import 'components/spinner';
+@import 'components/tabs';
+@import 'components/well';
+
+/* Site styles */
+@import 'crunch';
+@import 'editor';
+@import 'footer';
+@import 'header';
+@import 'home';
+@import 'javainterop';
+@import 'quickstart';
+@import 'reference';
+
+/* Extra styles */
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-weight: $base-font-weight;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+a {
+  color: inherit;
+}
+
+a.accent {
+  color: $rocket-blue;
+  text-transform: lowercase;
+  font-weight: 600;
+  @include padding(0.5rem null 0.5rem null);
+
+  &:hover {
+    border-bottom: 3px solid $rocket-blue;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.center {
+  text-align: center
+}
+
+.align-right {
+  text-align: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.ace_editor {
+  font-family: 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+}
+
+ul.with-bullets {
+  @extend %default-ul;
+}
+
+ol.with-bullets {
+  @extend %default-ol;
+}
+ol.extra-space {
+  li {
+    margin-bottom: 2em;
+  }
+}
+
+.title-font {
+  @include heading()
+}
+
+table.parsec-data-table {
+  width: auto;
+  min-width: 100%;
+  td, th {
+    padding-right: 0.33rem;
+  }
+}

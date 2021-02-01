@@ -1,0 +1,25 @@
+.page-editor
+
+    .query-templates
+        .query-templates-container
+            ui-select(ng-model='selectedTemplate', on-select='selectQueryTemplate($item, $model)')
+                ui-select-match(placeholder='Query Template')
+                    span  {{ $select.selected.name }}
+                ui-select-choices(repeat='template in queryTemplates | filter:$select.search | limitTo:100', group-by='"category"')
+                    span  {{ template.name }}
+
+    .editor-container
+        button.btn.tabset-btn(type='button', ng-click='newTab()')
+            i.fa.fa-plus
+
+        uib-tabset(flex=true, role='tablist')
+            uib-tab(ng-repeat='tab in tabs', active='tab.active', select='selectTab(tab)')
+                tab-heading
+                    i.fa.fa-check(ng-show='tab.query.isFresh', title='New Results are Available')
+                    i.fa.fa-spinner.fa-spin(ng-show='tab.query.isExecuting', title='Currently Executing...')
+                    span  {{ tab.id }}{{ tab.name == null ? "" : " - " + tab.name }}
+                    a.close-tab(ng-if='tabs.length > 1', ng-click='removeTab(tab)')
+                        i.fa.fa-times
+
+                .query-tab(ng-mousemove='tab.query.isFresh=false')
+                    parsec-editor(query='tab.query')

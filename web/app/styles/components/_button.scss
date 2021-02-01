@@ -1,0 +1,38 @@
+.btn {
+  display: inline-block;
+  padding: .50rem 1.0rem;
+
+  border-radius: 0.3em;
+  border-style: solid;
+  border-width: 1px;
+
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 90%;
+  font-weight: $base-font-weight;
+
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: top;
+
+  line-height: inherit;
+
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  color: $base-font-color;
+
+  transition: color 0.4s, background-color 0.4s, border 0.4s;
+}
+.btn:hover, .btn:focus {
+  background-color: #ddd;
+  border-color: #ddd;
+  color: #444;
+}
+.btn:active {
+  background-color: #bbb;
+  border-color: #ccc;
+  color: #444;
+}
+.btn-primary {
+  background-color: $action-color;
+}

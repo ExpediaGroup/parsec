@@ -1,0 +1,31 @@
+.crunch-editor
+    .query
+        div(ui-ace='aceOptions', ng-model='query.text')
+
+        .query-buttons
+            select(ng-model='selectedCrunchService', ng-options='option.name for option in serviceList track by option.name')
+            button.btn.btn-primary(type='button', ng-click='execute()', ng-disabled='isExecuting') Execute
+
+    .spinner.center.clear(ng-show='query.isExecuting')
+        i.fa.fa-spinner.fa-spin
+        div Executing
+
+    .results(ng-show='result')
+
+        .flash-notice(ng-if='_showPerformance && result.summary.totalEclipsedTime')
+            i.fa.fa-clock-o
+            span  Executed in {{ result.summary.totalEclipsedTime }} ms
+
+        uib-tabset.tabs-right
+            uib-tab(heading='Table View')
+                accordion(close-others='oneAtATime', ng-if='result.dataSets')
+                    accordion-group(ng-repeat='dataSet in result.dataSets', is-open='true')
+                        accordion-heading
+                            span {{ dataSet.name }}
+                            span.badge-notice.pull-right {{ dataSet.count }} rows
+                        .result
+                            parsec-data-table(dataset='dataSet')
+            uib-tab(heading='Raw View')
+                .raw-dataset(ng-repeat='dataSet in result.dataSets')
+                    h3 Data Set: {{ dataSet.name }}
+                    pre {{ dataSet.rawJSON }}

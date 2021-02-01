@@ -1,0 +1,38 @@
+
+.reference-token {
+  @include hand();
+
+  span {
+    font-size: 1.2rem;
+  }
+
+  i.fa {
+    margin-right: 0.3rem;
+  }
+
+  .token-type-icon {
+    &-statement {
+      color: lighten($statement-color, 10%);
+    }
+
+    &-function {
+      color: lighten($function-color, 10%);
+    }
+
+    &-literal {
+      color: lighten($literal-color, 10%);
+    }
+
+    &-operator {
+      color: lighten($operator-color, 10%);
+    }
+
+    &-symbol {
+      color: lighten($symbol-color, 10%);
+    }
+
+    &-input {
+      color: lighten($input-color, 10%);
+    }
+  }
+}

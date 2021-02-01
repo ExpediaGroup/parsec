@@ -1,0 +1,38 @@
+.parsec-editor {
+  .query-buttons {
+    text-align: right;
+  }
+
+  .ace_editor {
+    min-height: 10rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem !important;
+  }
+
+  .results {
+    padding-top: 1.0rem;
+
+    .result {
+      overflow-x: auto;
+      max-height: 64rem;
+    }
+
+    .errors {
+      i {
+        float: left;
+      }
+      pre {
+        margin-left: 2rem;
+      }
+    }
+
+    .raw-dataset {
+      font-family: $code-font-family;
+    }
+    .raw-dataset + .raw-dataset {
+      border-top: 1px solid $light-gray;
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+  }
+}

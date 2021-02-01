@@ -1,0 +1,8 @@
+node_modules/*
+npm-debug.log
+.npmrc
+
+test/test-results.xml
+
+# Bower stuff.
+bower_components/

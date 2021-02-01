@@ -1,0 +1,122 @@
+.page-quickstart
+    .well.light
+        h1 Quickstart
+        h2 Getting started with Parsec queries
+
+    .well.dark
+
+        p
+            span.title-font Parsec
+            |  queries are written in a domain-specific language (DSL)
+            | which has support for loading, filtering,
+            | transforming, and analyzing data from various input sources:
+        example-query(query='input mock')
+
+        p There are several example data sets built-in:
+        example-query(query='input mock name="chick-weight"')
+
+    .well.light
+
+        p Another statement can be added, to be applied to the result of the first:
+        example-query(query='input mock | sort col1 asc')
+
+        p Any number of statements can be chained together in sequence:
+        example-query(query='input mock | sort col1 desc | head')
+
+    .well.dark
+
+        p Datasets can be filtered by a predicate expression:
+        example-query(query='input mock | filter col1 > 3')
+
+        p Or rows matching the predicate can be removed:
+        example-query(query='input mock | remove col1 > 3')
+
+    .well.light
+
+        p Specific columns can be selected:
+        example-query(query='input mock name="survey"" | select age, income, male')
+
+        p Or removed:
+        example-query(query='input mock name="survey" | unselect altru')
+
+        p And columns can be renamed in-place:
+        example-query(query='input mock name="survey"" | rename isMale = male')
+
+    .well.dark
+
+        p New columns can be created by assigning a value to every row:
+        example-query(query='input mock | x = 1')
+
+        p Numbers, strings, and boolean values are all supported:
+        example-query(query='input mock | x = 1, y = "hello", z = true')
+
+        p Single-quotes or double-quotes can be used to create a string:
+        example-query(query='input mock | x = "one", y = \'two\'')
+
+        p Existing columns can be used to create new calculated columns:
+        example-query(query='input mock name="thurstone" | z = x + y')
+
+        p Multiple columns can be created at once, and reference each other (from left to right):
+        example-query(query='input mock name="thurstone" | z = x + y, z1 = z mod 2')
+
+        p Expressions can get complicated:
+        example-query(query='input mock name="thurstone"\n| u = -x + y, v = sqrt(abs(u)) / x, w = tofixed(v, 4)')
+
+        p Boolean expressions are supported:
+        example-query(query='input mock | x = col1 >= col2')
+
+        p So are conditional functions:
+        example-query(query='input mock | y = col4 + if (col1 >= col2, 100, 0)')
+
+        p Conditional assignments can be used to selectively modify a data set:
+        example-query(query='input mock name="thurstone" | x = x + 1000 where x > 100')
+
+    .well.light
+
+        p Statistical functions perform calculations on the entire dataset:
+        example-query(query='input mock name="chick-weight"\n| stats w = avg(weight)')
+
+        p Aggregations can be grouped by one or more columns:
+        example-query(query='input mock name="chick-weight"\n| stats w = avg(weight) by Chick\n| sort Chick asc')
+
+        p When used without the Stats keyword, statistical functions apply the same value to every row:
+        example-query(query='input mock name="chick-weight" | w = max(weight)')
+
+    .well.dark
+
+        p Pivoting can transform a dataset by moving row data into columns:
+        example-query(query='input mock name="airline-passengers"\n| pivot avg(passengers) per month by year')
+
+        p Multiple columns can be pivoted at once:
+        example-query(query='input mock name="airline-passengers"\n| pivot avg = avg(passengers), max = max(passengers) per month by year')
+
+        p If names aren't provided, they will be automatically generated for each column:
+        example-query(query='input mock name="airline-passengers"\n| pivot avg(passengers), max(passengers) per month by year')
+
+        p Expressions can be used in any position in the pivot statement:
+        example-query(query='input mock name="airline-passengers"\n| pivot count(passengers) per month by bucket = round(passengers / 50) * 50\n| sort bucket asc')
+
+        p Columns can also be unpivoted back into rows:
+        example-query(query='input mock\n| unpivot value per column by col4')
+
+    .well.light
+
+        p Columns can contain lists:
+        example-query(query='input mock | x = [1,2,3]')
+
+        p Expressions can be used to create lists:
+        example-query(query='input mock | stats x = [avg(col1), min(col1), max(col1)]')
+
+        p Pluck can be used to aggregate rows into lists:
+        example-query(query='input mock | stats x = pluck(col1) by col2')
+
+        p Lists have their own set of functions:
+        example-query(query='input mock\n| stats x = pluck(col1)\n| y = push(x, 6)\n| z = contains(y, lfirst(x)), length = length(y)')
+
+    .well.dark
+
+        p Multiple queries can be executed at once:
+        example-query(query='input mock;\ninput mock name="cars"')
+
+        p The output of queries can be given a specific name:
+        example-query(query='input mock name="chick-weight" | output name="chicks";\ninput mock | output name="mock"')

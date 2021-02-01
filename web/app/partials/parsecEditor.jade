@@ -1,0 +1,62 @@
+.parsec-editor
+    .query
+        div(ui-ace='aceOptions', ng-model='query.text')
+
+        .query-buttons
+            button.btn(type='button', ng-show='editorSelectedText', ng-click='openHelp()')
+                i.fa.fa-question-circle
+                |  Reference
+            button.btn(type='button', ng-click='validate()') Validate
+            button.btn.btn-primary(type='button', ng-click='execute()', ng-disabled='isExecuting') Execute
+
+    .spinner.center.clear(ng-show='query.isExecuting')
+        i.fa.fa-spinner.fa-spin
+        div Executing
+
+    .results(ng-show='result')
+
+        .flash-success(ng-if='result.valid')
+            i.fa.fa-check
+            span  Query Validated Successfully! ({{ result.performance2.parse }} parsing)
+        .flash-error(ng-repeat='error in result.errors', ng-if='!result.parsedTree')
+            i.fa.fa-exclamation-circle
+            span  Query Failed Validation:
+            pre {{ error }}
+        .flash-error(ng-repeat='error in result.errors', ng-if='result.parsedTree')
+            i.fa.fa-exclamation-circle
+            span  Execution Failed
+            pre {{ error }}
+
+        .flash-notice(ng-if='_showPerformance && result.performance2.total')
+            i.fa.fa-clock-o
+            span  Executed in {{ result.performance2.total }} ( {{ result.performance2.parse }} parsing, {{ result.performance2.compile }} compiling, {{ result.performance2.execute }} executing )
+
+        uib-tabset.tabs-right
+            uib-tab(heading='Table View', active='tabs.table.active')
+                accordion(close-others='oneAtATime', ng-if='result.dataSets')
+                    accordion-group(ng-repeat='dataSet in result.dataSets', is-open='true')
+                        accordion-heading
+                            span {{ dataSet.name }}
+                            span.badge-notice.pull-right {{ dataSet.count }} rows
+                        .result
+                            parsec-data-table(dataset='dataSet')
+            uib-tab(heading='Variables', ng-show='result.variables', active='tabs.variables.active')
+                h3 Variables
+                table
+                    thead
+                        tr
+                            th Name
+                            th Value
+                    tbody
+                        tr(ng-repeat='(name, value) in result.variables')
+                            td
+                                strong {{ name }}
+                            td {{ value }}
+
+            uib-tab(heading='Raw View', active='tabs.raw.active')
+                .raw-dataset(ng-repeat='dataSet in result.dataSets')
+                    h3 Data Set: {{ dataSet.name }}
+                    pre {{ dataSet.rawJSON }}
+            uib-tab(heading='Query', active='tabs.query.active')
+                pre.
+                    {{ result.prettyParsedTree }}

@@ -1,0 +1,57 @@
+.page-docs
+    .menu
+        h1 Reference
+
+        .token-type-filters.reference-token
+            i.fa.fa-circle.token-type-icon(ng-repeat='type in tokenTypes',
+                class='token-type-icon-{{ type }}',
+                ng-class='{excluded: isExcluded(type)}',
+                ng-click='toggleTypeFilter(type)',
+                title='Filter by {{ type }}s')
+            span(ng-if='tokenTypeFilter') {{ tokenTypeFilter }}s
+
+        form.search-bar(role='search', ng-submit='feelingLucky()')
+            input(type='search', placeholder='Search Topics', ng-model='tokenFilter')
+            button(type='submit')
+                img(src='https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon.png', alt='Search Icon')
+
+        .menu-item(ng-repeat='token in tokens | filter:tokenFilter | orderBy:menuSorter track by token.key')
+            reference-token(token='token')
+
+    #top.content
+
+        h1(ng-show='selectedToken') {{ selectedToken.name }}
+            span(ng-if='selectedToken.type == "function"') ()
+            span(ng-if='selectedToken.altName')  ({{ selectedToken.altName }})
+            .token-type-wrapper
+                .token-type(class='token-type-{{ selectedToken.type }}', ng-click='toggleTypeFilter(selectedToken.type) && search("")', title='Click to filter by this type') {{ selectedToken.type }}
+                .token-subtype(ng-click='toggleTypeFilter(selectedToken.type) && search("subtype:" + selectedToken.subtype)', title='Click to filter by this type') {{ selectedToken.subtype }}
+
+        .description
+            p(ng-repeat='description in selectedToken.description') {{ description }}
+
+        .syntaxes(ng-if='selectedToken.syntax')
+            h2 Syntax
+            .syntax(ng-repeat='syntax in selectedToken.syntax')
+                code {{ syntax }}
+
+                    span(ng-if='selectedToken.returns')
+                        i.fa.fa-long-arrow-right
+                        |  {{ selectedToken.returns }}
+
+        .examples(ng-if='selectedToken.examples')
+            h2 Examples
+            .example(ng-repeat='example in selectedToken.examples')
+                p(ng-if='example.description') {{ example.description }}:
+                example-query(query='{{ example.q }}')
+
+
+        .relateds(ng-if='selectedToken.related')
+            h2 Related
+            .related(ng-repeat='related in selectedToken.related')
+                reference-token(key='{{ related }}')
+
+        .aliases(ng-if='selectedToken.aliases')
+            h2 Aliases
+            .alias(ng-repeat='alias in selectedToken.aliases')
+                reference-token(key='{{ alias }}')

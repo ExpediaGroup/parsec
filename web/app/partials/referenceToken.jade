@@ -1,0 +1,5 @@
+.reference-token(ng-click='selectToken()', title='Click to view documentation')
+    i.fa.fa-circle.token-type-icon(class='token-type-icon-{{ token.type }}', title='Token type: {{ token.type }}')
+    span  {{ token.name }}
+    span(ng-if='token.type == "function"') ()
+    span(ng-if='token.altName')  ({{ token.altName }})

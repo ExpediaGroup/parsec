@@ -1,0 +1,150 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+        meta(name='viewport', content='width=device-width', initial-scale='1.0')
+        meta(name='description', content='Parsec website')
+        meta(name='author', content='Expedia Group <oss@expediagroup.com>')
+        meta(name='copyright', content='Copyright © Expedia, Inc.')
+        meta(http-equiv='ClearType', content='on')
+        base(href='/')
+
+        title Parsec Offline
+
+        link(rel='icon', href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAABwAAAAcABl8K+3QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAATNSURBVFiFvZdbbFRVFIa/teecmTnTTlsqEgveAY0YozF4KbSdgagRo+CLRh+M0ahcykWJ0UAMVgkJJAYT2xpAEzUxgSc08QFjgkynLUUSo/FCjFGeEAo2KO1cOnMuywcEZpyWdlrietvr8q9vn72zzjkkutJbkt2HagGS3Yfn8T+bydixdzQIvXbfe0fqFP+ets6epdWK3N7xc3jKAACZcGy7Y9zNvvAlJtTU1tX3SDUiM2ee/SbZ1fvolADixfy9cTe3vFAMvWUFvO4WzAGEaKKzb9lkBJp3Hm4UpUlFdiW70i9UDZBa15rSwPxhR/wnnGDkzXA42OAWTEqFeFt3/0MTCURtb4mKzEJ1jqrZkehKb6oKAKBnfUuvQY5nTd1TQ0MztoXDwQYb+6Bl5OeJBAJkKagAINoIsinRmd45WQApXSS7+1ogmOf4mb1522niNCeCq6ytYliIcqBnbWuFcLKr/wslKDt/hbwIH/W0t7ZPBGCVLlLtLX3Jzr7R2msyXv6Yc0JnWvsFHkMVkAcSnWlLTXSvWMEbhEw4cL196vvXj7ErB2V+1U+gfGe92xVZD+pc2BaQpyZ2kprYXABcN6/ZbEg8P3weskRYZHeqvWXVRABmvICibRA4JZkuluFicwDbdqShIUxNTQ4rdJFAlQAJvpyo+WUBEOkECS6KioGGGc6YuU40RkODEI1kwSDCH27EHJwWQE97614VnkPkF7XsnDQ22JhxTwxEIB6vob42g2V5o150dFoAAAXf/hzHsWRGfQy5bOolC4draai/sdYEqaUf98+dKP2yqo64dxMJTyhSYSJCXXyRr9GvlnxwZMWUAVDvN/X8oaoBLlgsdnMQju5K7DmyZmoAZxmkWPx1ygAA0cg1EnO2JfYc2TJW+NKt6lDTdnX6VlHzoCB3oHqdGplDwE3Ux4tEwjOmwyFu8Zzkcm8feqm5bJoKQPPOw44d9r83MFuhtqLatk9RX980/tianGmhcEazoxt6V9+/74LPAAxsXJQP1FqpqmfHrHS9Jh3Nn5lee5BIZJaJ2FsXd/bNLgMA6FvXnELkZeDkGOxIPu8TBEFlrEqLxeZZEevDCgCAnrWtn4mRzcCfFYV+0CSZzPFpAwgQq1nSumtgVQUAQGpNyyeg7wIjJTUZ4FjgeselUDw92V6WwLy4RZNjyq+PbUWNbT1Ph44/W5NdvVsD9DZUfoTQ/vTa5p8Q0cTugR3UxTdiQtZ4tXC+8Yu3xJjjGFxVfh/x2XksS877953luUWy2cerv9cdatpmH/1a6usSl0vbelct8+vKGQ8NFtn9a+6S4+9zn05ywJcCSKDZ0NMMZ8b9XKuzhVlOqMJ/bay8nYasG6oHAHpfWXhKPfcZ8rkxL2XOUwq+VvhH/+OTEI1TAgBIr170HfnCq+RHT/w35in88JeHH1xqmPWUQ4PFsjxFnGnONki8P7BMY5FucZybSv0CrLg+woJ6G08hNVjg6JBbXpzN/TJtAIDErv5m7OiH1DgLkMlLamYkPeUjKLWeVYsHZHh4sZ4b3o/rZSZVFAQqPv1X5AmUWnL3wLNqWe0aid4ptjX2T6sGyvBIauhk/OErDgBAh5rkrN7lakWexLJuABpBo0BGfB3UwE1nCG//duVC9x8hc8wgZUTmFAAAAABJRU5ErkJggg==')
+        meta(name='theme-color' content='#ffffff')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Megrim')
+
+        style.
+
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            .offline > img {
+                -ms-transform: rotate(90deg); /* IE 9 */
+                -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+                transform: rotate(90deg);
+            }
+
+            .hero {
+                height: 100%;
+                position: relative;
+                margin-left: -3.3rem;
+                margin-right: -3.3rem;
+                font-family: "Megrim", sans-serif;
+                font-weight: 300;
+            }
+
+            .hero .hero-background {
+                background: url("img/pawel-czerwinski-3fvHjNUbJnU-unsplash.jpg"), -webkit-linear-gradient(-450deg, #000, #fff), no-repeat #fff scroll;
+                background: url("img/pawel-czerwinski-3fvHjNUbJnU-unsplash.jpg"), linear-gradient(180deg, #000, #fff), no-repeat #fff scroll;
+                background-color: #666;
+                background-position: top;
+                background-repeat: no-repeat;
+                background-size: cover;
+                filter: blur(0.5px);
+                position: absolute;
+                bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: -1;
+                opacity: 1;
+            }
+
+            @media screen and (min-width: 1100px) {
+                .hero .hero-background {
+                    top: -100px;
+                }
+            }
+
+            .hero .hero-logo {
+                color: #fff;
+                margin-bottom: 1rem;
+            }
+
+            .hero .hero-logo img {
+                height: 8rem;
+                vertical-align: top;
+                margin-right: 1rem;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            .hero .hero-logo h1 {
+                display: block;
+                font-size: 4em;
+                line-height: 1em;
+                font-family: "Megrim", sans-serif;
+            }
+
+            .hero .hero-inner {
+                margin: auto;
+                padding: 3.5em;
+                text-align: center;
+                z-index: 1;
+            }
+
+            .hero .hero-inner .hero-copy {
+                text-align: center;
+            }
+
+            .hero .hero-inner .hero-copy p {
+                font-size: 1.5em;
+                color: #fff;
+                line-height: 1.8em;
+                margin: 0 auto 1em auto;
+            }
+
+            @media screen and (min-width: 650px) {
+                .hero .hero-logo img {
+                    height: 15rem;
+                }
+                .hero .hero-logo h1 {
+                    font-size: 7em;
+                    line-height: 1em;
+                }
+                .hero .hero-inner .hero-copy p {
+                    font-size: 1.7em;
+                    max-width: 80%;
+                }
+            }
+
+            .page-home {
+                height: 100%;
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .page-home h1 {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                font-size: 5.0rem;
+            }
+
+            .page-home h1 img {
+                display: inline-block;
+                vertical-align: text-bottom;
+                margin-right: 1rem;
+                width: 64px;
+            }
+
+    body
+        .page-home
+            .hero
+                .hero-background
+                .hero-inner
+                    .hero-logo.offline
+                        img(src='parsec-logo.svg', alt='Parsec')
+                        h1 parsec
+                    .hero-copy
+                        p Parsec is currently offline for maintenance.

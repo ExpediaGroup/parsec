@@ -1,0 +1,49 @@
+.page-javainterop
+    .well.light
+        h1 Java Interop
+        h2 Running Parsec as a Library
+
+    .well.dark
+
+        p.
+            Parsec can be used as a library and integrated into other applications that run on the JVM.  Clojure
+            supports Java interop natively, although it isn't quite as smooth as native libraries.
+        p.
+            Here's an example of Java code that executes a Parsec query and prints the result.  Other JVM languages
+            such as Scala or Kotlin can also execute Parsec queries in a similar fashion using the same methods/types,
+            although the implementation will differ.
+
+    .well.light
+        pre.code.
+            import java.util.Collection;
+            import java.util.Map;
+
+            import parsec.core.Parsec;
+            import parsec.core.ParsecResult;
+            import parsec.core.ParsecResultDataset;
+
+            public class ParsecInterop {
+                public static void main(String[] args) {
+
+                    String parsecQuery = "input mock";
+
+                    // Execute a query
+                    ParsecResult result = Parsec.executeQuery(parsecQuery);
+
+                    // Print results
+                    Collection<ParsecResultDataset> dataSets = (Collection<ParsecResultDataset>) result.dataSets;
+                    for (ParsecResultDataset dataSet : dataSets) {
+                        String name = (String) dataSet.name;
+                        Collection<Map<String, Object>> data = (Collection<Map<String, Object>>) dataSet.data;
+
+                        System.out.println("\nDataSet " + name + ":");
+
+                        int i = 0;
+                        for (Map<String, Object> row : data) {
+                            System.out.println("Row " + i + ": " + row);
+                            i++;
+                        }
+                    }
+                }
+            }
+

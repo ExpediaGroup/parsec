@@ -1,0 +1,53 @@
+.panel-group {
+
+  margin-bottom: 20px;
+
+  .panel {
+    margin-bottom: 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+
+    .panel-body {
+      padding: 15px;
+    }
+
+    .panel-heading {
+      padding: 10px 15px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      color: #333;
+      background-color: #f5f5f5;
+      border-color: #ddd;
+    }
+
+    .panel-title {
+      @include heading();
+
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      color: inherit;
+    }
+  }
+
+
+  .panel-collapse {
+    display: none;
+    visibility: hidden;
+
+    &.in {
+      display: block;
+      visibility: visible;
+    }
+  }
+
+  .panel + .panel {
+    margin-top: 5px;
+  }
+
+  .panel-heading + .panel-collapse > .panel-body,
+  .panel-heading + .panel-collapse > .list-group {
+    border-top: 1px solid #ddd;
+  }
+}

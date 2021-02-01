@@ -1,0 +1,27 @@
+header.navigation(role='banner', headroom=true, offset=20, ng-class='{home: $root.$state.name == "home", nothome: $root.$state.name != "home"}')
+    h1.branding
+        a(ui-sref='home')
+            img(src='img/parsec-logo.svg')
+            | parsec
+            span.version beta
+
+    ul.navigation-menu(role='navigation')
+        li
+            a(ui-sref='home') Home
+        li
+            a(ui-sref='editor') Editor
+        li.more
+            a Learn
+            ul.submenu
+                li
+                    a(ui-sref='quickstart') Quick Start
+                li
+                    a(ui-sref='reference') Reference
+                li
+                    a(ui-sref='javainterop') Java Interop
+                li
+                    a(ui-sref='crunch') Crunch
+
+        li(title='Browse the code on GitHub')
+            a(ng-href='https://github.com/ExpediaGroup/parsec/', target='_blank') Code
+

@@ -1,0 +1,34 @@
+# Website (compiled)
+/resources/public/*
+
+# Leiningen
+/.lein-*
+.nrepl-port
+
+# Eclipse
+.classpath
+.project
+.metadata
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear

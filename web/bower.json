@@ -1,0 +1,84 @@
+{
+  "name": "parsec-web",
+  "description": "Website for editing and running Parsec queries",
+  "author": "Expedia Group <oss@expediagroup.com>",
+  "version": "0.0.1",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ace-builds": "1.2.2",
+    "angular": "angularjs#~1.4.7",
+    "angular-bootstrap": "~0.14.3",
+    "angular-localforage": "~1.2.3",
+    "angular-mocks": "~1.4.7",
+    "angular-numeraljs": "~1.1.6",
+    "angular-ui-ace": "bower",
+    "angular-ui-router": "~0.2.15",
+    "angular-ui-select": "0.19.1",
+    "bitters": "1.1.0",
+    "bourbon": "4.2.5",
+    "fontawesome": "~4.3.0",
+    "headroom.js": "~0.7.0",
+    "jquery": "~2.1.3",
+    "js-beautify": "~1.5.10",
+    "lodash": "~3.5.0",
+    "megrim-googlefont": "*",
+    "momentjs": "~2.9.0",
+    "neat": "1.7.2",
+    "normalize-css": "normalize.css#~3.0.3",
+    "numeraljs": "~1.5.3",
+    "open-sans-fontface": "1.4.0",
+    "selectize": "~0.12.1"
+  },
+  "overrides": {
+    "ace-builds": {
+      "main": [
+        "src-noconflict/ace.js",
+        "src-noconflict/ext-language_tools.js",
+        "src-noconflict/theme-dawn.js"
+      ]
+    },
+    "angular-mocks": {
+      "ignore": true
+    },
+    "bitters": {
+      "main": []
+    },
+    "headroom.js": {
+      "main": [
+        "dist/headroom.js",
+        "dist/angular.headroom.js"
+      ]
+    },
+    "js-beautify": {
+      "main": [
+        "./js/lib/beautify.js"
+      ]
+    },
+    "megrim-googlefont": {
+      "main": [
+        "Megrim.ttf"
+      ]
+    },
+    "open-sans-fontface": {
+      "main": [
+        "./open-sans.css",
+        "./fonts/**/*"
+      ]
+    },
+    "selectize": {
+      "main": [
+        "dist/css/selectize.default.css"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": "~1.4.7"
+  }
+}

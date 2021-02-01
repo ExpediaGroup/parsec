@@ -1,0 +1,96 @@
+// Bitters 1.1.0
+// http://bitters.bourbon.io
+// Copyright 2013-2015 thoughtbot, inc.
+// MIT License
+
+// Modified for Parsec
+
+@import "../../bower_components/bitters/app/assets/stylesheets/variables";
+
+/* Variable overrides */
+
+/* Colors */
+$base-font-color: #8F8F8F;
+$lightertext-color: lighten($base-font-color, 30%);
+
+$base-border-color: gainsboro;
+$action-color: #D6E1EA;
+$light-gray: #bbb;
+$lighter-gray: #eee;
+$mostlywhite-color: #fafafa;
+
+$alert-color: #fff6bf !default;
+$error-color: #f9e4e4 !default;
+$notice-color: $action-color !default;
+$success-color: #d6ead6 !default;
+
+$well-light-color: $mostlywhite-color;
+$well-dark-color: #e9e9e9;
+
+/* Font Families */
+
+@font-face {
+  font-family: 'Megrim';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Megrim'), url(../fonts/Megrim.ttf) format('truetype');
+}
+
+$base-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$heading-font-family: 'Megrim', sans-serif;
+$code-font-family: "Ubuntu Mono","Consolas","source-code-pro",monospace;
+$hero-logo-font-family: 'Megrim', sans-serif;
+
+/* Font Sizes */
+$base-font-size: 16px;
+$h1-font-size: $base-font-size * 2.6;
+$h2-font-size: $base-font-size * 2.1;
+$h3-font-size: $base-font-size * 1.75;
+$h4-font-size: $base-font-size * 1.5;
+$h5-font-size: $base-font-size * 1.25;
+$h6-font-size: $base-font-size;
+
+$base-font-weight: 300;
+
+/* Neat settings */
+@import "../../bower_components/neat/app/assets/stylesheets/neat-helpers";
+
+/* Breakpoint overrides */
+$medium-screen: 650px;
+$medium-screen-up: new-breakpoint(min-width $medium-screen 12);
+
+$small-screen: 350px;
+
+
+/* Import the rest of Bitters */
+@import "../../bower_components/bitters/app/assets/stylesheets/buttons";
+@import "../../bower_components/bitters/app/assets/stylesheets/forms";
+@import "../../bower_components/bitters/app/assets/stylesheets/lists";
+@import "../../bower_components/bitters/app/assets/stylesheets/tables";
+@import "../../bower_components/bitters/app/assets/stylesheets/typography";
+
+/* Additional Styles */
+h1 { font-size: $h1-font-size; font-weight: 300; }
+h2 { font-size: $h2-font-size; font-weight: 300; margin-top: 1em; }
+h3 { font-size: $h3-font-size; font-weight: 300; margin-top: 1em; }
+h4 { font-size: $h4-font-size; font-weight: 300; }
+h5 { font-size: $h5-font-size; font-weight: 300; }
+h6 { font-size: $h6-font-size; font-weight: 300; }
+
+
+@mixin heading() {
+  font-family: $heading-font-family;
+  font-weight: 300;
+}
+
+@mixin hand() {
+  cursor: pointer;
+}
+
+@mixin responsive-pad() {
+  @include pad($page-margins / 2);
+
+  @include media($medium-screen) {
+    @include pad($page-margins);
+  }
+}

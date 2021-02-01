@@ -1,0 +1,44 @@
+.page-home {
+
+  @include outer-container(100%);
+  @include responsive-pad();
+  padding-top: 1rem !important;
+
+  .hero {
+    height: 40rem;
+    margin-bottom: $page-margins;
+  }
+
+  h1 {
+    @include user-select(none);
+
+    img {
+      display: inline-block;
+      vertical-align: text-bottom;
+      margin-right: 1rem;
+      width: 64px;
+    }
+
+    font-size: 5.0rem;
+
+    .version {
+      display: inline-block;
+      margin-left: 0.5rem;
+      font-variant: small-caps;
+      font-size: 0.5em;
+    }
+  }
+
+  a {
+    @include heading();
+    display: inline-block;
+    margin: 1rem 0;
+  }
+
+  .data-sources {
+    font-size: 1.3rem;
+    line-height: 2rem;
+    margin-left: 2rem;
+  }
+  
+}

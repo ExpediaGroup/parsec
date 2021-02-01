@@ -1,0 +1,24 @@
+.example-query
+
+    .example-query-bar
+        .ace
+            div(ui-ace='aceOptions', ng-model='query')
+
+        button.btn.example-btn(ng-click='execute()', title='Try out this query')
+            span(ng-hide='executing') Run
+            span(ng-show='executing')
+                i.fa.fa-spinner.fa-spin
+        button.btn.example-btn(ng-show='complete', ng-click='hideResult()', title='Hide results')
+            i.fa.fa-times
+
+    .flash-error(ng-show='error') {{ error }}
+
+    .results(ng-if='complete')
+        .variables(ng-if='variables')
+            h4 Variables
+            span.variable(ng-repeat='(name, value) in variables')
+                span.name {{ name }}:
+                span.value  {{ value }}
+
+        parsec-data-table(dataset='result')
+

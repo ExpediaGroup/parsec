@@ -1,0 +1,7 @@
+doc/
+target/
+web/node_modules/
+.lein-failures
+.nrepl-port
+*.iml
+.idea/

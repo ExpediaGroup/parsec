@@ -1,0 +1,25 @@
+.page-editor {
+
+  @include responsive-pad();
+
+  .query-templates {
+    @include row();
+    margin-bottom: 1rem;
+    font-size: 80%;
+
+    .query-templates-container {
+      float: right;
+      width: 20rem;
+      margin-left: 0.5rem;
+    }
+  }
+
+  .editor-container {
+    @include row();
+
+    .tabset-btn {
+      float: right;
+      color: $light-gray;
+    }
+  }
+}

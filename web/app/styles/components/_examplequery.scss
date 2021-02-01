@@ -1,0 +1,53 @@
+.example-query {
+  margin-bottom: 1rem;
+
+  .example-query-bar {
+    display: flex;
+    flex-direction: row;
+
+    .ace {
+      flex-grow: 1;
+    }
+
+    .ace_editor {
+      font-size: 1.1rem !important;
+      width: 100%;
+      min-height: 24px;
+    }
+
+    .ace_hidden-cursors {
+      opacity: 0;
+    }
+
+    .example-btn {
+      width: 4rem;
+      padding: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .results {
+    overflow: auto;
+    max-height: 16rem;
+
+    .variables {
+      margin-top: 0.3rem;
+      font-size: 1.1rem;
+      h4 {
+        font-size: 1.5rem;
+        display: inline-block;
+        margin-right: 1rem;
+        margin-bottom: 0;
+      }
+      .variable {
+        span.name {
+          font-weight: bold;
+        }
+        span.value {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}

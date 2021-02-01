@@ -1,0 +1,23 @@
+.page-crunch
+    //.well.light
+    //    h1 Crunch to Parsec
+    //    h2 A Migration Tool
+    //
+    //.well.dark
+    //
+    //    p Crunch has a similar query language to
+    //        span.title-font  Parsec
+    //        | , but there are differences in the syntax and implementation.
+    //
+    //    p The automatic conversion tool below attempts to rewrite a Crunch query as an equivalent Parsec query.
+
+    .crunch
+        h2 Crunch Query
+        crunch-editor(query='crunchQuery', show-performance='false')
+    .converter
+        a(ng-click='convert()')
+            i.fa.fa-arrow-circle-right
+            span  Convert
+    .parsec
+        h2 Parsec Query
+        parsec-editor(query='parsecQuery', show-performance='false')

@@ -1,0 +1,94 @@
+.page-home
+    .hero
+        .hero-background
+        .hero-inner
+            .hero-logo
+                img(src='img/parsec-logo.svg', alt='Parsec')
+                h1 parsec
+                h2 A Next-Gen Query Engine
+            .hero-copy
+            .hero-attribution
+              span Image by:
+                a(href="https://unsplash.com/@pawel_czerwinski")  Paweł Czerwiński
+
+    .well.light
+
+        p
+            span.title-font Parsec
+            |  is a data processing and calculation engine for running analytic queries
+            | against various data sources.
+
+        p Queries are written in a domain-specific language (DSL)
+            | which has support for loading, filtering,
+            | transforming, and analyzing data from various input sources.
+
+        p Parsec is focused on dataset operations, but also has support for variables and custom functions.
+
+        p
+            a.accent(ui-sref='quickstart')
+                i.fa.fa-arrow-circle-right
+                |  Learn More
+
+    .well
+        ul.bullets
+            li.bullet
+                .bullet-icon
+                    i.fa.fa-download
+
+                .bullet-content
+                    h3 Data Sources
+                    p Various Data Sources make retrieving data from external databases and services easy.
+
+            li.bullet
+                .bullet-icon
+                    i.fa.fa-filter
+
+                .bullet-content
+                    h3 Data Set Transforms
+                    p Filter, sort, aggregate, and many more transformations are available to process data sets.
+
+            li.bullet
+                .bullet-icon
+                    i.fa.fa-wrench
+
+                .bullet-content
+                    h3 Functions
+                    p Numerous functions are available for any kind of analysis: math, statistics, string parsing, date/time, etc.
+
+
+    .well.dark
+
+        h2 Why
+            span.title-font  Parsec
+
+        p
+            span.title-font Parsec
+            |  is a lightweight solution for small-to-medium data queries.  It can pull data from separate datasets together for
+            | combined correlation or aggregation.
+
+        p As a JVM-compatible library,
+            span.title-font  Parsec
+            |  can be integrated in other applications which need the flexibility to
+            | execute dynamic queries, leveraging Parsec's rich and fully-tested feature set without re-inventing the wheel.
+            |  And as a web service, it can easily be leveraged by websites or other services.
+
+    .well.light
+
+        h2 Supported Data Sources:
+
+        ul.data-sources
+            li AWS Redshift
+            li DB2
+            li Graphite
+            li HSQLDB
+            li Hive
+            li InfluxDB
+            li Microsoft SQL Server
+            li MongoDB
+            li MySQL
+            li Oracle
+            li PostgreSQL
+            li Presto (Teradata driver)
+            li Qubole (Hive, Presto, Spark)
+            li SMB/CIFS Network File Sharing
+            li Teradata

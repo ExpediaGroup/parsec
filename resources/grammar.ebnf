@@ -1,0 +1,214 @@
+(* Query *)
+<Q> = query (<';'> query)* <';'>?
+query = leading-statement (<'|'> statement)*
+<leading-statement> = input-statement | def-statement | set-statement | project-statement | benchmark-statement | sleep-statement
+
+<statement> = input-statement
+              | output-statement
+              | temp-statement
+              | def-statement
+              | set-statement
+              | head-statement
+              | tail-statement
+              | select-statement
+              | unselect-statement
+              | filter-statement
+              | remove-statement
+              | reverse-statement
+              | rownumber-statement
+              | sort-statement
+              | rename-statement
+              | assignment-statement
+              | stats-statement
+              | sleep-statement
+              | sample-statement
+              | pivot-statement
+              | unpivot-statement
+              | project-statement
+              | union-statement
+              | distinct-statement
+              | join-statement
+              | benchmark-statement
+
+
+(* Statements *)
+input-statement = <'INPUT'> identifier options
+output-statement = <'OUTPUT'> identifier? options
+options = (identifier <ASSIGN> expression COMMA?)*
+
+temp-statement = <'TEMP'> identifier
+
+def-statement = <'DEF'> def-terms
+<def-terms> = def-term (COMMA def-term)*
+def-term = function-name ASSIGN function-impl
+function-impl = LPAREN? function-args RPAREN? <'->'> expression
+function-args = identifier? (COMMA identifier)*
+
+set-statement = <'SET'> set-terms where-term?
+set-terms = set-term (COMMA set-term)*
+set-term = variable ASSIGN expression
+
+head-statement = <'HEAD'> number?
+tail-statement = <'TAIL'> number?
+
+select-statement = <'SELECT'> identifier (COMMA identifier)*
+unselect-statement = <'UNSELECT'> identifier (COMMA identifier)*
+
+filter-statement = <'FILTER'> expression
+remove-statement = <'REMOVE'> expression
+
+reverse-statement = <'REVERSE'>
+
+rownumber-statement = <'ROWNUMBER'> identifier?
+
+sort-statement = <'SORT'> sort-column (COMMA sort-column)*
+sort-column = identifier (order-ascending | order-descending)
+order-ascending = <'ASC'> | epsilon
+order-descending = <'DESC'>
+
+rename-statement = <'RENAME'> rename-terms where-term?
+rename-terms = rename-term (COMMA rename-term)*
+rename-term = identifier ASSIGN identifier
+
+assignment-statement = assignment-terms where-term?
+assignment-terms = assignment-term (COMMA assignment-term)*
+assignment-term = identifier ASSIGN expression
+where-term = <'WHERE'> expression
+
+stats-statement = <'STATS'> stats-assignment-terms stats-groupby?
+stats-assignment-terms = assignment-term (COMMA assignment-term)*
+stats-groupby = <'BY'> stats-groupby-term (COMMA stats-groupby-term)*
+<stats-groupby-term> = auto-assignment-term | assignment-term
+
+sleep-statement = <'SLEEP'> expression?
+
+sample-statement = <'SAMPLE'> expression
+
+pivot-statement = <'PIVOT'> pivot-terms <'PER'> pivot-per-terms <'BY'> pivot-groupby
+pivot-terms = pivot-term (COMMA pivot-term)*
+pivot-per-terms = expression (COMMA expression)*
+pivot-groupby = pivot-term (COMMA pivot-term)*
+<pivot-term> = auto-assignment-term | assignment-term
+auto-assignment-term = expression
+
+unpivot-statement = <'UNPIVOT'> unpivot-terms <'PER'> unpivot-per-terms <'BY'> unpivot-groupby
+unpivot-terms = unpivot-term
+unpivot-per-terms = unpivot-term
+unpivot-groupby = unpivot-term (COMMA unpivot-term)*
+<unpivot-term> = identifier
+
+project-statement = <'PROJECT'> expression
+
+union-statement = <'UNION'> (distinct | all)? LPAREN? query RPAREN?
+distinct-statement = <distinct>
+distinct = <'DISTINCT'>
+all = <'ALL'>
+
+join-statement = join-type <'JOIN'> join-alias join-target join-terms
+join-type = (NATURAL | INNER | FULL | LEFT | RIGHT | CROSS)?
+join-alias = (identifier COMMA)?
+<join-target> = join-reference-source | join-inline-source
+join-reference-source = identifier
+join-inline-source = LPAREN query RPAREN identifier?
+join-terms = (ON join-term (COMMA join-term)*)?
+<join-term> = theta-join-term | equi-join-term
+equi-join-term = join-identifier EQUALS join-identifier
+theta-join-term = expression
+<ON> = <'ON'>
+INNER = <'INNER'>
+NATURAL = <'NATURAL'>
+OUTER = <'OUTER'>
+FULL = <'FULL'>? <OUTER>?
+LEFT = <'LEFT'> <OUTER>?
+RIGHT = <'RIGHT'> <OUTER>?
+CROSS = <'CROSS'>
+
+benchmark-statement = (<'BENCHMARK'> | <'BENCH'>) expression options
+
+(* Constants *)
+<LPAREN> = <'('>
+<RPAREN> = <')'>
+<COMMA> = <','>
+<AND> = <'AND'> | <'&&'>
+<OR> = <'OR'> | <'||'>
+<XOR> = <'XOR'> | <'^^'>
+<NOT> = <'NOT'> | <'!'>
+<ASSIGN> = <'='>
+<EQUALS> = <'=='>
+<NOT-EQUALS> = <'!='>
+<GREATER-THAN> = <'>'>
+<GREATER-OR-EQUALS> = <'>='>
+<LESS-OR-EQUALS> = <'<='>
+<LESS-THAN> = <'<'>
+<NULL> = <'NULL'>
+TRUE = <'TRUE'>
+FALSE = <'FALSE'>
+
+
+(* Literals *)
+<literal> = identifier | string | number | function-term | boolean | nil | star | variable | list | map | join-identifier
+identifier = backtick-identifier | #'[a-zA-Z_][a-zA-Z0-9_]*'
+backtick-identifier = #'`[^`]+`'
+join-identifier = identifier <'.'> identifier
+single-quoted-string = #'(?s)\'\'|\'(?:.*?([^\\]|\\\\))?\''
+double-quoted-string = #'(?s)\"\"|\"(?:.*?([^\\]|\\\\))\"'
+triple-quoted-string = #'(?s)\'{6}|\'{3}(?:.*?([^\\]|\\\\))?\'{3}'
+string = single-quoted-string | double-quoted-string | triple-quoted-string
+number = #'[-+]?(0(\.\d*)?|([1-9]\d*\.?\d*)|(\.\d+))([Ee][+-]?\d+)?' percent?
+<negative-number> = #'-(0(\.\d*)?|([1-9]\d*\.?\d*)|(\.\d+))([Ee][+-]?\d+)?' percent?
+percent = <'%'>
+boolean = TRUE | FALSE
+nil = NULL
+star = <'*'>
+variable = #'@[a-zA-Z0-9_]+[\']?'
+list = <'['> (expression (COMMA expression)*)? <']'>
+map = <'{'> (map-item (COMMA map-item)*)? <'}'>
+map-item = (identifier | string) <':'> expression
+
+
+(* Algebraic & Boolean Expressions *)
+expression = function-impl | or-precedence
+<or-precedence> = or-operation | xor-operation | and-precedence
+<and-precedence> = and-operation | equals-precedence
+<equals-precedence> = equals-expression | not-equals-expression | inequality-precedence
+<inequality-precedence> = greater-or-equals-expression | greater-than-expression | less-or-equals-expression | less-than-expression | add-sub-precedence
+
+<add-sub-precedence> = mul-div-precedence | negation-operation | addition-operation | subtraction-operation
+<mul-div-precedence> = exp-term-precedence | negation-operation | multiplication-operation | division-operation | modulus-operation
+<exp-term-precedence> = exponent-operation | not-precedence
+<not-precedence> = not-operation / function-precedence
+<function-precedence> = expression-term
+<expression-term> = literal  | LPAREN expression RPAREN
+
+or-operation = or-precedence OR and-precedence
+xor-operation = or-precedence XOR and-precedence
+and-operation = and-precedence AND and-precedence
+not-operation = NOT not-precedence
+
+greater-or-equals-expression = inequality-precedence GREATER-OR-EQUALS add-sub-precedence
+less-or-equals-expression = inequality-precedence LESS-OR-EQUALS add-sub-precedence
+greater-than-expression = inequality-precedence GREATER-THAN add-sub-precedence
+less-than-expression = inequality-precedence LESS-THAN add-sub-precedence
+
+equals-expression = equals-precedence EQUALS inequality-precedence
+not-equals-expression = equals-precedence NOT-EQUALS inequality-precedence
+
+negation-operation = !negative-number <'-'> add-sub-precedence
+addition-operation = add-sub-precedence <'+'> mul-div-precedence
+subtraction-operation = add-sub-precedence <'-'> mul-div-precedence
+multiplication-operation = mul-div-precedence <'*'> exp-term-precedence
+division-operation = mul-div-precedence <'/'> exp-term-precedence
+modulus-operation = mul-div-precedence <'mod'> exp-term-precedence
+exponent-operation = exp-term-precedence <'^'> expression-term
+
+
+(* Functions *)
+<function-term> = special-function / function
+function = (function-name LPAREN args RPAREN) | (function-name LPAREN RPAREN)
+function-name = #'[a-zA-Z_][a-zA-Z0-9_%]*'
+<args> = expression (COMMA expression)*
+
+(* Special Functions *)
+<special-function> = isexist-function
+
+isexist-function = <'ISEXIST'> LPAREN identifier RPAREN

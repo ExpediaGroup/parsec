@@ -1,0 +1,46 @@
+.wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto (-$footer-height);
+  /* Pad bottom by footer height */
+  padding: 0 0 ($footer-height);
+
+  @include clearfix;
+}
+
+footer {
+  height: $footer-height;
+  padding: ($footer-height / 3.0) $page-margins;
+
+  background-color: $theme-accent-background-color;
+
+  //margin-top 1rem
+  //margin-bottom 4rem
+  color: $theme-accent-text-color;
+  text-align: left;
+  font-size: 85%;
+
+  a {
+    //border-bottom: 1px dotted #ddd;
+  }
+
+  .logo {
+    height: 32px;
+    vertical-align: top;
+    margin-left: 0.5rem;
+  }
+
+  ul {
+    margin: auto;
+    margin-top: 0.5rem;
+
+    li {
+      vertical-align: top;
+      display: inline-block;
+      list-style-type: none;
+      padding-right: 24px;
+      line-height: 32px;
+    }
+  }
+}
