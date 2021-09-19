@@ -16,25 +16,24 @@
   (:require [instaparse.core :as insta]
             [taoensso.timbre :as timbre]
             [clojure.set :refer [map-invert]])
-  (:use [clojure.test :only (is)]
-        [parsec.helpers])
+  (:use [parsec.helpers])
   (:import (org.apache.commons.text StringEscapeUtils)))
 
 (timbre/refer-timbre)
 
 (def whitespace
   (insta/parser
-    "whitespace = #'\\s+'"))
+   "whitespace = #'\\s+'"))
 
 (def whitespace-or-comments
   (insta/parser
-    "ws-or-comments = #'\\s+' | comments
+   "ws-or-comments = #'\\s+' | comments
      comments = (block-comment | line-comment)+
      block-comment = '/*' inside-block-comment* '*/'
      inside-block-comment =  !( '*/' | '/*' ) #'.' | block-comment
      line-comment = #'//(.*?)(\n|$)'"
 
-    :auto-whitespace whitespace))
+   :auto-whitespace whitespace))
 
 (def parsec-parser
   (time (insta/parser (clojure.java.io/resource "grammar.ebnf")
@@ -91,8 +90,8 @@
 
     ;; Rewrite coalesce() in terms of case()
     :coalesce (reduce
-                (fn [l i] (conj l [:expression [:not-equals-expression i [:expression :nil]]] i))
-                [:function :case] args)
+               (fn [l i] (conj l [:expression [:not-equals-expression i [:expression :nil]]] i))
+               [:function :case] args)
 
     ;; Provide defaults for random()
     :random (case (count args)
@@ -255,8 +254,7 @@
    ;; Functions
    :function-name        #(keyword (clojure.string/lower-case %))
    :function-args        (fn [& args] (into [] args))
-   :function             simplify-function
-   })
+   :function             simplify-function})
 
 (defn clean-tree
   "Cleans an simplifies an expression tree"
