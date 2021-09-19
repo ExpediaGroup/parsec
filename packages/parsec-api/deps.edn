@@ -1,0 +1,41 @@
+{:paths   ["src", "resources"]
+
+ :deps    {org.clojure/clojure {:mvn/version "1.10.0"}
+
+           ;; Parsec
+           parsec/parsec {:local/root "../parsec"}
+
+           ;; Web Service Dependencies
+           compojure/compojure {:mvn/version "1.6.1"}
+           ring/ring-defaults {:mvn/version "0.3.2"}
+           ring/ring-json {:mvn/version "0.4.0"}
+           ring-cors/ring-cors {:mvn/version "0.1.13"}
+           ring/ring-jetty-adapter {:mvn/version "1.7.1"}
+           cheshire/cheshire {:mvn/version "5.8.1"}
+           metrics-clojure-ring/metrics-clojure-ring {:mvn/version "2.6.1"}
+
+           yogthos/config {:mvn/version "1.1.1"}
+           com.taoensso/timbre {:mvn/version "4.10.0"}
+           criterium/criterium {:mvn/version "0.4.4"}
+           clj-time/clj-time {:mvn/version "0.15.1"}
+           joda-time/joda-time {:mvn/version "2.10.1"}
+
+           ;; Explicit Guava dependency to avoid pulling in older versions
+           ;; TODO: Revisit
+           com.google.guava/guava {:mvn/version "26.0-jre"}}
+
+ :mvn/repos {"redshift" {:url "https://s3.amazonaws.com/redshift-maven-repository/release"}}
+
+ :aliases {:server {:extra-deps {mtkp/ring-dev {:git/url "https://github.com/mtkp/ring-dev"
+                                                :sha "330d8318790939a4b7d8cab01712415e63c62618"}}
+                    :main-opts ["-m" "mtkp.ring-dev.main" "parsec.api.service/app"
+                                "--port" "8101"]}
+
+           :test    {:extra-paths ["test"]
+                     :extra-deps {io.github.cognitect-labs/test-runner
+                                  {:git/tag "v0.5.0" :git/sha "b3fd0d2"}}
+                     :main-opts ["-m" "cognitect.test-runner"]
+                     :exec-fn cognitect.test-runner.api/test}
+
+           :uberjar {:extra-deps {uberdeps/uberdeps {:mvn/version "1.1.0"}}
+                     :main-opts  ["-m" "uberdeps.uberjar" "--target" "../../target/parsec-api-2.0.0.jar"]}}}

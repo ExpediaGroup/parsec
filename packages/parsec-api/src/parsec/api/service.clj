@@ -12,14 +12,14 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(ns parsec.service
+(ns parsec.api.service
   (:gen-class)
   (:require [parsec.core :refer [execute-query validate-query]]
-            [parsec.config :refer :all]
-            [parsec.helpers :refer [add-shutdown-hook hostname]]
+            [parsec.api.config :as config]
+            [parsec.api.helpers :refer [add-shutdown-hook]]
             [clojure.string :refer [join]])
 
-  (:require [compojure.core :refer :all]
+  (:require [compojure.core :refer [context defroutes rfn routes POST]]
             [compojure.route :as route]
             [clojure.java.io :as io]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
@@ -28,48 +28,45 @@
             [ring.util.response :refer [response]]
             [ring.adapter.jetty :refer [run-jetty]]
             [metrics.ring.expose :refer [expose-metrics-as-json]]
-            [metrics.ring.instrument :refer [instrument]]
-            [metrics.reporters.graphite :as graphite])
+            [metrics.ring.instrument :refer [instrument]])
 
-  (:require [cheshire.generate :only [add-encoder]]
+  (:require [cheshire.generate :refer [add-encoder]]
             [clj-time.coerce :as time-coerce]
             [clj-time.core :as time])
 
   (:import (org.joda.time DateTime DateMidnight Interval ReadablePeriod)
-           (com.codahale.metrics MetricFilter)
-           (java.util.concurrent TimeUnit)
            (clojure.lang AFunction)
            (org.bson.types ObjectId)))
 
 ;; Custom DateTime encoders for clj-time/JodaTime
 (doall
-  (map #(cheshire.generate/add-encoder
+  (map #(add-encoder
          %
          (fn [c jsonGenerator]
            (.writeString jsonGenerator (time-coerce/to-string c))))
        [DateTime DateMidnight]))
 
-(cheshire.generate/add-encoder
+(add-encoder
   Interval
   (fn [c jsonGenerator]
     (.writeNumber jsonGenerator (time/in-millis c))))
 
-(cheshire.generate/add-encoder
+(add-encoder
   ReadablePeriod
   (fn [period jsonGenerator]
     (.writeString jsonGenerator (.toString period))))
 
-(cheshire.generate/add-encoder
+(add-encoder
   AFunction
   (fn [fn jsonGenerator]
     (.writeString jsonGenerator (.toString fn))))
 
-(cheshire.generate/add-encoder
+(add-encoder
   parsec.functions.ParsecUdf
   (fn [udf jsonGenerator]
     (.writeString jsonGenerator (str "(" (join ", " (map name (:args udf))) ") -> " (:implementation udf)))))
 
-(cheshire.generate/add-encoder
+(add-encoder
   ObjectId
   (fn [objectId jsonGenerator]
     (.writeString jsonGenerator (.toHexString objectId))))
@@ -121,20 +118,10 @@
                  :access-control-allow-methods [:get :put :post]
                  :access-control-allow-headers ["Content-Type"])))
 
-;; Metrics logging
-(when (get-in parsec-config [:metrics :graphite])
-  (let [config (:metrics parsec-config)
-        reporter (graphite/reporter {:host          (:graphite-host config)
-                                     :port          (:graphite-port config)
-                                     :prefix        (str (:graphite-prefix config) "." (clojure.string/replace (hostname) "." "_"))
-                                     :rate-unit     TimeUnit/SECONDS
-                                     :duration-unit TimeUnit/MILLISECONDS
-                                     :filter        MetricFilter/ALL})]
-    (graphite/start reporter (:reporter-frequency config))))
 
 (add-shutdown-hook #(println "Shutting down Parsec"))
 
 (defn -main
   "Run embedded jetty service."
   [& args]
-  (run-jetty app {:port (:port parsec-config)}))
+  (run-jetty app {:port (:port config/parsec-config)}))
