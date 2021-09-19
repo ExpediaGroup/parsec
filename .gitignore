@@ -1,9 +1,19 @@
+# Clojure
+.clj-kondo/
+.lsp/
+**/.cpcache
+packages/*/target
+
 # Website (compiled)
 /resources/public/*
 
 # Leiningen
 /.lein-*
 .nrepl-port
+
+# VS Code
+.vscode/
+.calva/
 
 # Eclipse
 .classpath
@@ -16,7 +26,7 @@
 *.iml
 *.iws
 
-# Sublime
+# Sublime Text
 *.sublime-project
 *.sublime-workspace
 
