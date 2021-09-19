@@ -1,6 +1,7 @@
 {:paths   ["src", "resources"]
 
  :deps    {org.clojure/clojure {:mvn/version "1.10.0"}
+           
            ;; Core Dependencies
            org.clojure/core.incubator {:mvn/version "0.1.4"}
            yogthos/config {:mvn/version "1.1.1"}
@@ -9,18 +10,7 @@
            org.clojars.frozenlock/commons-lang {:mvn/version "3.3.0"}
            commons-codec/commons-codec {:mvn/version "1.12"}
            instaparse/instaparse {:mvn/version "1.4.10"}
-           metrics-clojure/metrics-clojure {:mvn/version "2.10.0"}
-           metrics-clojure-graphite/metrics-clojure-graphite {:mvn/version "2.10.0"}
            org.apache.commons/commons-text {:mvn/version "1.6"}
-
-           ;; Web Service Dependencies
-           compojure/compojure {:mvn/version "1.6.1"}
-           ring/ring-defaults {:mvn/version "0.3.2"}
-           ring/ring-json {:mvn/version "0.4.0"}
-           ring-cors/ring-cors {:mvn/version "0.1.13"}
-           ring/ring-jetty-adapter {:mvn/version "1.7.1"}
-           cheshire/cheshire {:mvn/version "5.8.1"}
-           metrics-clojure-ring/metrics-clojure-ring {:mvn/version "2.6.1"}
 
            ;; JDBC Dependencies
            org.clojure/java.jdbc {:mvn/version "0.7.9"}
