@@ -1,6 +1,6 @@
 {:paths   ["src", "resources"]
 
- :deps    {org.clojure/clojure {:mvn/version "1.10.0"}
+ :deps    {org.clojure/clojure {:mvn/version "1.10.3"}
            
            ;; Core Dependencies
            org.clojure/core.incubator {:mvn/version "0.1.4"}
