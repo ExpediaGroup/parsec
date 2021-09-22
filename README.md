@@ -124,9 +124,11 @@ The web service provides a JSON dump of metrics at the following URL:
     http://localhost:8101/metrics
 
 ## Contributing
+
 Pull requests are welcome. Please refer to our [CONTRIBUTING](./CONTRIBUTING.md) file.
 
 ## Legal
+
 This project is available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
-Copyright 2020 Expedia, Inc.
+Copyright 2020-2022 Expedia, Inc.
