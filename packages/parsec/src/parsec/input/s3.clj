@@ -21,8 +21,8 @@
             [clojure.string :as str]
             [aws.sdk.s3 :as s3]
             [clojure.java.io :as io])
-  (:import [java.io InputStream]
-           [java.util.zip GZIPInputStream ZipInputStream]
+  (:import (java.io InputStream)
+           (java.util.zip GZIPInputStream ZipInputStream)
            (org.apache.commons.io IOUtils)))
 
 (defn input-stream->str

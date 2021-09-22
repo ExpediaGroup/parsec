@@ -44,6 +44,7 @@
            ;; Misc Dependencies
            clojurewerkz/urly {:mvn/version "1.0.0"}
            clj-time/clj-time {:mvn/version "0.15.1"}
+           commons-io/commons-io {:mvn/version "2.11.0"}
            joda-time/joda-time {:mvn/version "2.10.1"}
            pandect/pandect {:mvn/version "0.6.1"}
            fipp/fipp {:mvn/version "0.6.17"}
