@@ -4,7 +4,7 @@
    [re-frame.core :as re-frame]
    [parsec-web.events :as events]
    [parsec-web.routes :as routes]
-   [parsec-web.views :as views]
+   [parsec-web.views.main :as views]
    [parsec-web.config :as config]
    ))
 
