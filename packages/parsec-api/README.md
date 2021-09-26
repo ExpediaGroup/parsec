@@ -1,5 +1,3 @@
-
-
 ## Development
 
 Launch a development server using [ring-dev](https://github.com/mtkp/ring-dev):
@@ -21,5 +19,5 @@ clojure -T:build uber
 The Parsec API Service can be launched from the uberjar like this:
 
 ```
-java -cp "target/parsec-api-*-standalone.jar" parsec.api.service
+java -cp "target/parsec-api-VERSION-standalone.jar" parsec.api.service
 ```
