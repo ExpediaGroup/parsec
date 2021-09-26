@@ -8,6 +8,10 @@
 		"ci": "npx shadow-cljs compile karma-test && npx karma start --single-run --reporters junit,dots"
 	},
 	"dependencies": {
+		"@chakra-ui/react": "^1.6.8",
+		"@emotion/react": "^11.4.1",
+		"@emotion/styled": "^11.3.0",
+		"framer-motion": "^4.1.17",
 		"highlight.js": "11.1.0",
 		"react": "17.0.2",
 		"react-dom": "17.0.2"
