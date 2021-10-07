@@ -5,14 +5,14 @@
    [parsec-web.views.about :as about]
    [parsec-web.views.home :as home]
    [parsec-web.subs :as subs]
-   [parsec-web.components.chakra-ui :as chakra]
+   [parsec-web.components.base :as c]
    [parsec-web.components.header :as header]))
 
 ;; main
 
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
-    [chakra/chakraProvider
+    [c/chakraProvider
      [:div
       (header/header)
       (routes/panels @active-panel)]]))

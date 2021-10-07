@@ -11,7 +11,11 @@
 (def routes
   (atom
     ["/" {""      :home
-          "about" :about}]))
+          "home"  :home
+          "about" :about
+          "editor" :editor
+          "learn" :learn
+          "community" :community}]))
 
 (defn parse
   [url]
