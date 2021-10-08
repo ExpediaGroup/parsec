@@ -11,12 +11,17 @@
 (defn clean [_]
   (b/delete {:path "target"}))
 
+(defn copy-web-resources []
+  (b/copy-dir {:src-dirs ["../parsec-web/resources/public"]
+               :target-dir (str class-dir "/public")}))
+
 (defn jar [_]
   (b/write-pom {:class-dir class-dir
                 :lib lib
                 :version version
                 :basis basis
                 :src-dirs ["src"]})
+  (copy-web-resources)
   (b/copy-dir {:src-dirs ["src" "resources"]
                :target-dir class-dir})
   (b/jar {:class-dir class-dir
@@ -29,6 +34,7 @@
                 :version version
                 :basis basis
                 :src-dirs ["src"]})
+  (copy-web-resources)
   (b/copy-dir {:src-dirs ["src" "resources"]
                :target-dir class-dir})
   (b/compile-clj {:basis basis
