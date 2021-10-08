@@ -86,15 +86,7 @@
     (POST "/validate" request
       (response
         (validate-query
-          (get-in request [:body "query"])))))
-  )
-
-; (defroutes
-;   site-routes
-;   (route/resources "/")
-
-;   ;; Default to index
-;   (rfn [] (slurp (io/resource "public/index.html"))))
+          (get-in request [:body "query"]))))))
 
 (defroutes
   site-routes
