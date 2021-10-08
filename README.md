@@ -119,7 +119,7 @@ And run:
 
 ### Metrics
 
-The web service hosts a JSON of metrics at the following URL:
+The web service provides a JSON dump of metrics at the following URL:
 
     http://localhost:8101/metrics
 
