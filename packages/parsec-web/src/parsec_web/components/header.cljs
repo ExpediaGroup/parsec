@@ -16,12 +16,14 @@
                    :box-size theme/header-text-size
                    :mr "0.5rem"}]
     [c/heading
-     {:font-size theme/header-text-size :font-family theme/parsec-font-family :font-weight "400"}
+     {:font-size theme/header-text-size :font-family theme/parsec-font-family :font-weight "400" :mr "1rem"}
      "parsec"]
     
     (map #(into [c/router-link {:router-target (keyword %) 
                                 :font-family theme/parsec-font-family 
                                 :font-size "2rem" 
-                                :mx "0.5rem"} %]) 
+                                :mx "0.5rem"
+                                :_hover {:background "white"
+                                         :color "teal.500"}} %]) 
          ["home" "editor" "learn" "community"])
    ]])
