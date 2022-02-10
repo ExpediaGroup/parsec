@@ -15,6 +15,8 @@
           "about" :about
           "editor" :editor
           "learn" :learn
+          "quickstart" :quickstart
+          "reference" :reference
           "community" :community}]))
 
 (defn parse

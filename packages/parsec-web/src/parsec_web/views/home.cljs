@@ -3,7 +3,8 @@
    [re-frame.core :as re-frame]
    [parsec-web.events :as events]
    [parsec-web.subs :as subs]
-   [parsec-web.components.base :as c]))
+   [parsec-web.components.base :as c]
+   ["@chakra-ui/react" :as chakra]))
 
 
 ;; home
@@ -13,6 +14,9 @@
 
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]
+    
+    ;;[:div {:class "stars"}]
+    ;;[:div {:class "twinkle"}]
     
     ;; .hero
     ;;     .hero-background
@@ -31,6 +35,8 @@
 
      (hello-component)
 
+     [c/text "TEXT MESSAGE"]
+                     
      [:div
       [:a {:on-click #(re-frame/dispatch [::events/navigate :about])}
        "go to About Page"]]
