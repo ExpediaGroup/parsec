@@ -6,15 +6,23 @@
    [parsec-web.views.home :as home]
    [parsec-web.subs :as subs]
    [parsec-web.components.base :as c]
-   [parsec-web.components.header :as header]))
+   [parsec-web.components.header :as header]
+   [parsec-web.theme :as theme]
+   ["@chakra-ui/react" :as chakra]))
 
 ;; main
 
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
-    [c/chakraProvider
-     [:div
-      (header/header)
+    [:> chakra/ColorModeScript {:initialColorMode (:initialColorMode theme/parsec-theme)}]
+    [:> chakra/ChakraProvider
+     {:resetCSS true :portalZIndex 10
+      :theme theme/parsec-theme}
+     [c/flex
+      {:min-height "100vh"
+       :display "flex"
+       :flex-direction "column"}
+      [:f> header/header]
       (routes/panels @active-panel)]]))
 
 

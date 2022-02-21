@@ -11,54 +11,80 @@
 
 (defn header []
   [c/flex
-   {:p "0.5rem"
-    :mx "2rem"
-    :align "center"
-    :justify "space-between"}
+   {:p "0 2rem"
+    :align "stretch"
+    :justify "space-between"
+    :color :white
+    ;:bg "#3d444e"
+    :bg "synthwave.500"}
+
    [c/flex
     {:align "center"
      :cursor "pointer"
+     :my "0.5rem"
      :on-click #(re-frame/dispatch [::events/navigate :home])}
     [c/image {:src "/assets/img/parsec-logo.svg"
               :box-size theme/header-text-size
-              :mr "0.5rem"}]
+              :mr "1rem"}]
     [c/flex {:align "baseline"}
      [c/heading
-      {:font-size theme/header-text-size :font-family theme/parsec-font-family :font-weight "400"}
+      {:font-size theme/header-text-size :font-weight "400"}
       "parsec"]
      [c/heading
-      {:font-size theme/header-subtext-size :font-family theme/parsec-font-family :font-weight "400"}
+      {:font-size theme/header-subtext-size :font-weight "400"}
       "beta"]]]
 
    [c/flex
-    {:align "center"}
-    (map #(into [c/router-link {:router-target (keyword %)
-                                :font-family theme/parsec-font-family
+    {:align "stretch"}
+    (map #(into [c/router-link {:key %
+                                :router-target (keyword %)
+                                :font-family "heading"
                                 :font-size "2rem"
-                                :mx "0.5rem"
-                                :_hover {:background "white"
-                                         :color "teal.500"}} %])
+                                :font-weight "600"
+                                :px "1rem"
+                                :display "flex"
+                                :position "relative"
+                                :justify-content "center"
+                                :flex-direction "column"
+                                :border-top "4px solid transparent"
+                                :border-bottom "4px solid transparent"
+                                :_hover {:border-bottom "4px solid"
+                                         :color "parsec.blue"}} %])
          ["home" "editor"])
 
     [:> chakra/Menu
      [:> chakra/MenuButton
-      {:font-family theme/parsec-font-family
+      {:font-family "heading"
        :font-size "2rem"
-       :mx "0.5rem"
-       :_hover {:background "white"
-                :color "teal.500"}}
-      [c/text "learn"]]
-     [:> chakra/MenuList
-      [:> chakra/MenuItem {:font-family theme/parsec-font-family
+       :font-weight "600"
+       :px "1rem"
+       :display "flex"
+       :position "relative"
+       :justify-content "center"
+       :flex-direction "column"
+       :border-top "4px solid transparent"
+       :border-bottom "4px solid transparent"
+       :_hover {:border-bottom "4px solid"
+                :color "parsec.blue"}
+       :sx {"> span" {:flex "unset"}}}
+      "learn"]
+     [:> chakra/MenuList {:z-index 20
+                          :color :black}
+      [:> chakra/MenuItem {:font-family "heading"
                            :font-size "2rem"
                            :on-click #(re-frame/dispatch [::events/navigate :quickstart])} "quick start"]
-      [:> chakra/MenuItem  {:font-family theme/parsec-font-family
+      [:> chakra/MenuItem  {:font-family "heading"
                             :font-size "2rem"
                             :on-click #(re-frame/dispatch [::events/navigate :reference])} "reference"]]]
 
-    [c/link
-     {:href "https://github.com/ExpediaGroup/parsec"
-      :height "2rem"}
-     [c/icon {:as icons/github
-              :mx "0.5rem"
-              :boxSize "2rem"}]]]])
+    [c/flex {:flex-direction "column"
+             :justify-content "center"}
+     (let [height "2.25rem"]
+       [c/link
+        {:href "https://github.com/ExpediaGroup/parsec"
+         :height height}
+        [c/icon {:as icons/github
+                 :mx "1rem"
+
+                 :boxSize height
+                 :_hover {:color "parsec.blue"}}]])]]])
