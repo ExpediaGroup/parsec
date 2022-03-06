@@ -25,11 +25,6 @@ All notable changes to this project will be documented in this file. See [Conven
 
 * Migrate to a monorepo structure using tools.deps ([20b37f0](https://github.com/ExpediaGroup/parsec/commit/20b37f073ea9818e8073809429327bd15784d508))
 
-# Change Log
-
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [1.0.0]() (2020-10-21)
 
 ### Features
