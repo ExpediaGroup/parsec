@@ -1,9 +1,14 @@
+## Tests
 
+Run tests like this:
 
+```
+clojure -X:test
+```
 
 ## Source Jar
 
-The most common Clojure build creates a jar file containing Clojure source code.  This is appropriate for use within other Clojure projects.
+The most common Clojure build creates a jar file containing Clojure source code. This is appropriate for use within other Clojure projects.
 
 ```
 clojure -T:build clean

@@ -1,0 +1,31 @@
+branches:
+  - main
+plugins:
+  - - "@semantic-release/commit-analyzer"
+    - preset: conventionalcommits
+
+  - - "@semantic-release/release-notes-generator"
+    - preset: "conventionalcommits"
+
+  - - "@semantic-release/changelog"
+    - changelogTitle: "# Changelog\n\nAll notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines."
+
+  - - "@semantic-release/exec"
+    - prepareCmd: "echo ${nextRelease.version} > VERSION"
+
+  - - "@semantic-release/exec"
+    - prepareCmd: |
+        cd packages/parsec && clojure -T:build uber
+        ls -lah target
+        cd ../..
+        cd packages/parsec-api && clojure -T:build uber
+        ls -lah target
+
+  - - "@semantic-release/git"
+    - message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      assets:
+        - CHANGELOG.md
+        - packages/parsec/target/parsec-*-standalone.jar
+        - packages/parsec-api/target/parsec-api-*-standalone.jar
+
+  - "@semantic-release/github"
