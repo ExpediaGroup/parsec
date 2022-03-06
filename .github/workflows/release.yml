@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "17"
+
+      - uses: DeLaGuardo/setup-clojure@4.0
+        with:
+          cli: 1.10.3.1087
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4.1.0
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      # Release the next version
+      - name: Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v2.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+        with:
+          semantic_version: 18.0.1
+          extra_plugins: |
+            @semantic-release/changelog@6.0.1
+            @semantic-release/exec@6.0.3
+            @semantic-release/github@8.0.2
+            @semantic-release/git@10.0.1
+            conventional-changelog-conventionalcommits@4.6.1
