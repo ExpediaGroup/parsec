@@ -2,7 +2,7 @@
   (:require [clojure.tools.build.api :as b]))
 
 (def lib 'ExpediaGroup/parsec-api)
-(def version (format "2.0.%s" (b/git-count-revs nil)))
+(def version (slurp "../../VERSION"))
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
