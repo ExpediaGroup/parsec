@@ -1,9 +1,10 @@
-name: Clojure CI
+name: Test
 
 on:
   pull_request:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   parsec:
@@ -27,9 +28,6 @@ jobs:
       - name: Tests
         run: clojure -X:test
 
-      - name: Uberjar
-        run: clojure -T:build uber
-
   parsec-api:
     runs-on: ubuntu-latest
     defaults:
@@ -50,6 +48,3 @@ jobs:
 
       - name: Tests
         run: clojure -X:test
-
-      - name: Uberjar
-        run: clojure -T:build uber
