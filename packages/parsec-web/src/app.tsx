@@ -6,6 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { MainPage } from './pages/main-page/main-page';
 import { parsecTheme } from './theme';
 
+import '@fontsource/megrim';
+import '@fontsource/open-sans';
+
 import './index.css';
 import './app.css';
 
