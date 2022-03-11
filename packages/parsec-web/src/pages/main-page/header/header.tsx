@@ -20,7 +20,7 @@ import { Stripes } from './stripes';
 
 export const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const hoverColor = useColorModeValue('synthwave.A60', 'synthwave.800');
+  const hoverColor = useColorModeValue('parsec.purple', 'parsec.pink');
 
   const headerItemProps: any = {
     fontFamily: 'heading',
@@ -41,16 +41,18 @@ export const Header = () => {
 
   return (
     <Flex
+      flexGrow={0}
+      flexShrink={0}
       p="0 2rem"
       align="stretch"
       justify="space-between"
       height="4.7rem"
       color="white"
       _light={{
-        bg: 'synthwave.800'
+        bg: 'parsec.pink'
       }}
       _dark={{
-        bg: 'synthwave.300'
+        bg: 'parsec.violet'
       }}
     >
       <Flex
@@ -88,7 +90,7 @@ export const Header = () => {
           </MenuButton>
           <MenuList
             _light={{
-              color: 'synthwave.200'
+              color: 'parsec.violet'
             }}
           >
             <Link to="/quickstart" subtle={true}>

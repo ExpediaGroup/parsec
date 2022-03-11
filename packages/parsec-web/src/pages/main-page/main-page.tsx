@@ -4,6 +4,7 @@ import { EditorPage } from '../editor-page/editor-page';
 import { HomePage } from '../home-page/home-page';
 import { ReferencePage } from '../reference-page/reference-page';
 
+import { Footer } from './footer/footer';
 import { Header } from './header/header';
 
 export const MainPage = () => {
@@ -16,6 +17,8 @@ export const MainPage = () => {
         <Route path="/editor" element={<EditorPage />} />
         <Route path="/reference" element={<ReferencePage />} />
       </Routes>
+
+      <Footer />
     </>
   );
 };

@@ -5,6 +5,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
 import './theme-parsec.js';
+import './theme-parsec-dark.js';
 import 'ace-builds/src-noconflict/theme-nord_dark';
 import 'ace-builds/src-noconflict/mode-markdown';
 
