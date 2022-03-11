@@ -10,7 +10,6 @@ import '@fontsource/megrim';
 import '@fontsource/open-sans';
 
 import './index.css';
-import './app.css';
 
 const App = () => {
   return (
