@@ -8,8 +8,10 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Stack,
   useColorMode,
-  useColorModeValue
+  useColorModeValue,
+  useDisclosure
 } from '@chakra-ui/react';
 
 import parsecLogoUrl from '../../../../assets/parsec-logo.svg';
@@ -19,6 +21,7 @@ import { iconFactory, iconFactoryAs } from '../../../shared/icon-factory';
 import { Stripes } from './stripes';
 
 export const Header = () => {
+  const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const hoverColor = useColorModeValue('parsec.purple', 'parsec.pink');
 
@@ -41,13 +44,13 @@ export const Header = () => {
 
   return (
     <Flex
-      flexGrow={0}
       flexShrink={0}
       p="0 2rem"
-      align="stretch"
+      align={{ base: 'center', md: 'stretch' }}
       justify="space-between"
-      height="4.7rem"
+      height={{ base: 'unset', md: '4.7rem' }}
       color="white"
+      wrap={{ base: 'wrap', md: 'unset' }}
       _light={{
         bg: 'parsec.pink'
       }}
@@ -76,7 +79,26 @@ export const Header = () => {
         </Flex>
       </Flex>
 
-      <Flex align="stretch">
+      <Icon
+        as={iconFactory(isOpen ? 'close' : 'menu')}
+        display={{ base: 'flex', md: 'none' }}
+        onClick={onToggle}
+        focusable={true}
+      />
+
+      <Stack
+        display={{
+          base: isOpen ? 'flex' : 'none',
+          md: 'flex'
+        }}
+        direction={{ base: 'column', md: 'row' }}
+        width={{ base: 'full', md: 'auto' }}
+        spacing={{ base: '1.5rem', md: 0 }}
+        mb={{ base: '1rem', md: 0 }}
+        align="stretch"
+        justifyContent="end"
+        textAlign="center"
+      >
         <Link to="/" subtle={true} {...headerItemProps}>
           home
         </Link>
@@ -89,6 +111,7 @@ export const Header = () => {
             learn
           </MenuButton>
           <MenuList
+            maxW={{ base: '100%', md: 'auto' }}
             _light={{
               color: 'parsec.violet'
             }}
@@ -106,7 +129,7 @@ export const Header = () => {
           </MenuList>
         </Menu>
 
-        <Stripes />
+        <Stripes display={{ base: 'none', md: 'flex' }} />
 
         <Flex flexDirection="column" justifyContent="center">
           <Link href="https://github.com/ExpediaGroup/parsec" subtle={true} height="2.25rem">
@@ -119,6 +142,7 @@ export const Header = () => {
             icon={iconFactoryAs(`${colorMode == 'light' ? 'dark' : 'light'}Mode`)}
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
+            height={{ base: '56px', md: 'unset' }}
             variant="ghost"
             _hover={{
               bg: 'transparent',
@@ -126,7 +150,7 @@ export const Header = () => {
             }}
           />
         </Flex>
-      </Flex>
+      </Stack>
     </Flex>
   );
 };

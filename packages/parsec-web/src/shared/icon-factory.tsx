@@ -1,14 +1,17 @@
 import { Icon } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 import type { IconType } from 'react-icons';
+import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
-import { GoMarkGithub } from 'react-icons/go';
+import { GoMarkGithub, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
 
 const icons = {
+  close: GoX,
   github: GoMarkGithub,
   darkMode: BsFillMoonStarsFill,
   lightMode: BsFillSunFill,
+  menu: AiOutlineMenu,
   unknown: GrStatusUnknown
 };
 
