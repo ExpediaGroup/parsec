@@ -13,6 +13,8 @@ import {
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import parsecLogoUrl from '../../../../assets/parsec-logo.svg';
 import { Link } from '../../../components/link/link';
@@ -21,9 +23,15 @@ import { iconFactory, iconFactoryAs } from '../../../shared/icon-factory';
 import { Stripes } from './stripes';
 
 export const Header = () => {
-  const { isOpen, onToggle } = useDisclosure();
+  const location = useLocation();
+  const { isOpen, onClose, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const hoverColor = useColorModeValue('parsec.purple', 'parsec.pink');
+
+  useEffect(() => {
+    // Close header menu when navigating to a new page
+    onClose();
+  }, [location]);
 
   const headerItemProps: any = {
     fontFamily: 'heading',

@@ -121,7 +121,7 @@ export const HomePage = () => {
               Why Parsec?
             </Heading>
             <Text>
-              <Text as="span" textStyle="white">
+              <Text as="span" textStyle="parsec">
                 Parsec
               </Text>{' '}
               is a lightweight solution for small-to-medium data queries. It can pull data from disparate sources
