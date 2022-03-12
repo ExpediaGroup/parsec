@@ -82,6 +82,7 @@ export const Header = () => {
       <Icon
         as={iconFactory(isOpen ? 'close' : 'menu')}
         display={{ base: 'flex', md: 'none' }}
+        boxSize="1.5rem"
         onClick={onToggle}
         focusable={true}
       />
@@ -142,7 +143,7 @@ export const Header = () => {
             icon={iconFactoryAs(`${colorMode == 'light' ? 'dark' : 'light'}Mode`)}
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
-            height={{ base: '56px', md: 'unset' }}
+            height={{ base: '56px', md: '2.25rem' }}
             variant="ghost"
             _hover={{
               bg: 'transparent',
