@@ -1,46 +1,29 @@
 import { useColorModeValue } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
-import { useDebouncedCallback } from 'use-debounce';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
 import './theme-parsec.js';
 import './theme-parsec-dark.js';
 import 'ace-builds/src-noconflict/theme-nord_dark';
+import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/mode-markdown';
 
 interface Props {
-  contents: string;
-  onContentsChange?: (updatedValue: string) => any;
+  query: string;
+  onQueryChange?: (updatedValue: string) => any;
   readOnly?: boolean;
 }
 
-export const Editor = ({ contents, onContentsChange, readOnly = false }: Props) => {
-  const aceTheme = useColorModeValue('parsec', 'nord_dark');
-
-  const [internalValue, setInternalValue] = useState(contents);
-
-  // Overwrite internal state if external contents change
-  useEffect(() => {
-    setInternalValue(contents);
-  }, [contents]);
-
-  // Debounce value changes to avoid too-frequent updates
-  const debounced = useDebouncedCallback((value) => {
-    setInternalValue(value);
-
-    if (onContentsChange) {
-      onContentsChange(internalValue);
-    }
-  }, 25);
+export const Editor = ({ query, onQueryChange, readOnly = false }: Props) => {
+  const aceTheme = useColorModeValue('parsec', 'tomorrow_night_eighties');
 
   return (
     <AceEditor
       mode="markdown"
       theme={aceTheme}
       editorProps={{ $blockScrolling: true }}
-      value={internalValue}
-      onChange={debounced}
+      value={query}
+      onChange={onQueryChange}
       tabSize={2}
       wrapEnabled={true}
       showGutter={true}
@@ -52,7 +35,7 @@ export const Editor = ({ contents, onContentsChange, readOnly = false }: Props) 
       setOptions={{
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true,
-        enableSnippets: true
+        enableSnippets: false
       }}
       fontSize="1.125rem"
     />

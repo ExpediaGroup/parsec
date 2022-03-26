@@ -1,22 +1,32 @@
 import { Icon } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 import type { IconType } from 'react-icons';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiFillEdit, AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
-import { GoMarkGithub, GoX } from 'react-icons/go';
+import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
+import { MdAdd } from 'react-icons/md';
+import { VscListTree, VscSettingsGear } from 'react-icons/vsc';
 
 const icons = {
+  chevronDown: GoChevronDown,
+  chevronLeft: GoChevronLeft,
+  chevronRight: GoChevronRight,
+  chevronUp: GoChevronUp,
   close: GoX,
+  edit: AiFillEdit,
   github: GoMarkGithub,
   darkMode: BsFillMoonStarsFill,
   lightMode: BsFillSunFill,
   menu: AiOutlineMenu,
+  plus: MdAdd,
+  settings: VscSettingsGear,
+  tree: VscListTree,
   unknown: GrStatusUnknown
 };
 
-type IconFactory = typeof icons;
-type IconFactoryKeys = keyof IconFactory;
+export type IconFactory = typeof icons;
+export type IconFactoryKeys = keyof IconFactory;
 
 export const iconFactory = (key: IconFactoryKeys): IconType => {
   if (icons[key]) {
