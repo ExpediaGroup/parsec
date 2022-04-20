@@ -1,5 +1,6 @@
-import { useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import AceEditor from 'react-ace';
+import { useResizeDetector } from 'react-resize-detector';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
 import './theme-parsec.js';
@@ -15,29 +16,32 @@ interface Props {
 }
 
 export const Editor = ({ query, onQueryChange, readOnly = false }: Props) => {
-  const aceTheme = useColorModeValue('parsec', 'tomorrow_night_eighties');
+  const aceTheme = useColorModeValue('parsec', 'parsec_dark');
+
+  const { width, height, ref } = useResizeDetector();
 
   return (
-    <AceEditor
-      mode="markdown"
-      theme={aceTheme}
-      editorProps={{ $blockScrolling: true }}
-      value={query}
-      onChange={onQueryChange}
-      tabSize={2}
-      wrapEnabled={true}
-      showGutter={true}
-      showPrintMargin={false}
-      width="100%"
-      minLines={30}
-      maxLines={Number.POSITIVE_INFINITY}
-      readOnly={readOnly}
-      setOptions={{
-        enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true,
-        enableSnippets: false
-      }}
-      fontSize="1.125rem"
-    />
+    <Box overflow="hidden" flexGrow={1} position="relative" height="100%" ref={ref}>
+      <AceEditor
+        mode="markdown"
+        theme={aceTheme}
+        editorProps={{ $blockScrolling: true }}
+        value={query}
+        onChange={onQueryChange}
+        tabSize={2}
+        wrapEnabled={true}
+        showGutter={true}
+        showPrintMargin={false}
+        height={`${height}px`}
+        width={`${width}px`}
+        readOnly={readOnly}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: false
+        }}
+        fontSize="1.125rem"
+      />
+    </Box>
   );
 };

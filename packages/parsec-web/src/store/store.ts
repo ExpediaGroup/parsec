@@ -3,10 +3,12 @@ import { persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 
+import { appSlice, appListener } from './app.slice';
 import { editorSlice } from './editor.slice';
 import { parsecApi } from './parsec.slice';
 
 export const rootReducer = combineReducers({
+  app: appSlice.reducer,
   editor: editorSlice.reducer,
   [parsecApi.reducerPath]: parsecApi.reducer
 });
@@ -19,7 +21,7 @@ const persistedReducer = persistReducer<RootState>(
     version: 1,
     storage,
     stateReconciler: autoMergeLevel2,
-    blacklist: []
+    blacklist: ['parsecApi']
   },
   rootReducer
 );
@@ -28,6 +30,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => {
     return [
+      appListener.middleware,
       ...getDefaultMiddleware({
         serializableCheck: {
           ignoreActions: true

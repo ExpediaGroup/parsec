@@ -2,58 +2,68 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
-export enum Activity {
-  Queries = 'queries',
-  History = 'history',
-  Settings = 'settings'
+export enum TabType {
+  Home = 'home',
+  Query = 'query',
+  Reference = 'reference'
 }
 
-export interface TabState {
+export enum EditorLayout {
+  DockBottom = 'dockBottom',
+  DockRight = 'dockRight'
+}
+
+export interface BaseTabState {
   tabKey: string;
+  type: TabType;
   label: string;
+}
+
+export interface QueryTabState extends BaseTabState {
   query: string;
   isRunning: boolean;
   isFresh?: boolean;
 }
 
+export type TabState = BaseTabState | QueryTabState;
+
+export const isHomeTab = (tab: TabState): tab is BaseTabState => {
+  return tab.type === TabType.Home;
+};
+
+export const isQueryTab = (tab: TabState): tab is QueryTabState => {
+  return tab.type === TabType.Query;
+};
+
 export interface EditorState {
-  isSidebarOpen: boolean;
-  currentActivity: Activity;
   tabs: TabState[];
   selectedTabIndex: number;
   lastTabNumber: number;
+  layout: EditorLayout;
 }
 
 const initialState: EditorState = {
-  isSidebarOpen: false,
-  currentActivity: Activity.Queries,
   tabs: [
     {
       tabKey: nanoid(),
-      label: 'Untitled 1',
-      query: 'input mock',
-      isRunning: false
+      type: TabType.Home,
+      label: 'Welcome'
     }
   ],
   selectedTabIndex: 0,
-  lastTabNumber: 1
+  lastTabNumber: 1,
+  layout: EditorLayout.DockBottom
 };
 
 export const editorSlice = createSlice({
   name: 'editor',
   initialState,
   reducers: {
-    toggleSidebar(state) {
-      state.isSidebarOpen = !state.isSidebarOpen;
-    },
-    setSidebarOpen(state, action: PayloadAction<boolean>) {
-      state.isSidebarOpen = action.payload;
-    },
-    setCurrentActivity(state, action: PayloadAction<Activity>) {
-      state.currentActivity = action.payload;
-    },
     setSelectedTab(state, action: PayloadAction<number>) {
       state.selectedTabIndex = action.payload;
+    },
+    toggleLayout(state) {
+      state.layout = state.layout === EditorLayout.DockBottom ? EditorLayout.DockRight : EditorLayout.DockBottom;
     },
     updateTabLabel(state, action: PayloadAction<{ tabKey: string; label: string }>) {
       const { tabKey, label } = action.payload;
@@ -65,20 +75,36 @@ export const editorSlice = createSlice({
     updateTabQuery(state, action: PayloadAction<{ tabKey: string; query: string }>) {
       const { tabKey, query } = action.payload;
       const tab = state.tabs.find((t) => t.tabKey === tabKey);
-      if (tab) {
+      if (tab && isQueryTab(tab)) {
         tab.query = query;
       }
     },
-    openNewTab(state) {
+    updateQueryTab(state, action: PayloadAction<Partial<QueryTabState>>) {
+      const { tabKey, ...rest } = action.payload;
+      const tab = state.tabs.find((t) => t.tabKey === tabKey);
+      if (tab && isQueryTab(tab)) {
+        Object.assign(tab, rest);
+      }
+    },
+    openNewQueryTab(state) {
       const nextTabNumber = state.lastTabNumber + 1;
       state.tabs.push({
         tabKey: nanoid(),
+        type: TabType.Query,
         label: `Untitled ${nextTabNumber}`,
         query: `input mock | set @index = ${nextTabNumber}`,
         isRunning: false,
         isFresh: true
       });
       state.lastTabNumber = nextTabNumber;
+    },
+    openNewHomeTab(state) {
+      state.tabs.push({
+        tabKey: nanoid(),
+        type: TabType.Home,
+        label: 'Welcome'
+      });
+      state.selectedTabIndex = state.tabs.length - 1;
     },
     closeTab(state, action: PayloadAction<{ tabKey: string }>) {
       const { tabKey } = action.payload;

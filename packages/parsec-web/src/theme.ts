@@ -20,8 +20,14 @@ export const parsecTheme = extendTheme({
       orange: '#ff6c11',
       pink: '#fd3777',
       violet: '#2e2157',
+      raisin: '#25242e',
       purple: '#791e94',
-      yellow: '#f9c80e'
+      yellow: '#f9c80e',
+      grey: {
+        200: '#b5b1b2',
+        400: '#dbdeef',
+        900: '#f8f8f8'
+      }
     },
     synthwave: {
       50: '#0d0221',
@@ -62,6 +68,10 @@ export const parsecTheme = extendTheme({
     global: {
       'html, body': {
         fontSize: 'md'
+      },
+      'pre, code': {
+        fontFamily: "'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace",
+        fontSize: '1.125rem'
       }
     }
   },
@@ -72,7 +82,24 @@ export const parsecTheme = extendTheme({
   },
   components: {
     Button: {
+      baseStyle: {
+        _hover: {
+          bg: 'transparent',
+          color: 'parsec.pink'
+        },
+        _focus: {
+          _dark: {
+            boxShadow: '0 0 0 3px #fd3777'
+          },
+          _light: {
+            boxShadow: '0 0 0 3px #fd3777'
+          }
+        }
+      },
       variants: {
+        primary: {
+          bg: 'parsec.pink'
+        },
         fancy: {
           fontFamily: "'Megrim', sans-serif",
           fontSize: 'xl',
@@ -97,23 +124,54 @@ export const parsecTheme = extendTheme({
               boxShadow: 'lg',
               borderColor: 'parsec.yellow'
             }
-          },
-          _focus: {
-            _dark: {
-              boxShadow: '0 0 0 3px #fd3777'
-            },
-            _light: {
-              boxShadow: '0 0 0 3px #791e94'
-            }
           }
         },
-        ghost: {
-          _focus: {
-            _dark: {
-              boxShadow: '0 0 0 3px #fd3777'
+        ghost: {}
+      }
+    },
+    IconButton: {
+      variants: {
+        polar: {
+          bg: '#444'
+        }
+      }
+    },
+    Table: {
+      baseStyle: {
+        th: {
+          fontFamily: 'body'
+        }
+      }
+    },
+    Tabs: {
+      variants: {
+        parsec: {
+          tab: {
+            borderRadius: 'full',
+            fontWeight: 'semibold',
+            color: 'gray.600',
+            mr: '0.5rem',
+            _hover: {
+              bg: 'transparent',
+              color: 'parsec.pink'
             },
-            _light: {
-              boxShadow: '0 0 0 3px #791e94'
+            _focus: {
+              _dark: {
+                boxShadow: '0 0 0 3px #fd3777'
+              },
+              _light: {
+                boxShadow: '0 0 0 3px #fd3777'
+              }
+            },
+            _selected: {
+              _dark: {
+                color: 'black',
+                bg: 'parsec.blue'
+              },
+              _light: {
+                color: 'black',
+                bg: 'parsec.blue'
+              }
             }
           }
         }
