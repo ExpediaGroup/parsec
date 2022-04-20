@@ -1,11 +1,10 @@
 import { Heading } from '@chakra-ui/react';
 
-export const ReferencePage = () => {
+export const QueriesPage = () => {
   return (
     <>
       <Heading as="h2" textStyle="parsec">
-        {' '}
-        Reference
+        Queries
       </Heading>
     </>
   );

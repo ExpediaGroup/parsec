@@ -2,7 +2,6 @@ import type { FlexProps } from '@chakra-ui/react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { Button, Flex, Heading, Image, Stack, Text, VStack } from '@chakra-ui/react';
 
-import gridUrl from '../../../assets/grid.svg';
 import parsecLogoUrl from '../../../assets/parsec-logo.svg';
 import { Link } from '../../components/link/link';
 
@@ -13,7 +12,7 @@ interface Props {
 }
 const Section = ({ children, innerProps, outerProps }: Props) => (
   <Flex direction="row" minHeight="80vh" align="center" justify="center" {...outerProps}>
-    <Flex direction="column" align="stretch" maxWidth="75rem" flexGrow={1} {...innerProps}>
+    <Flex direction="column" align="stretch" flexGrow={1} {...innerProps}>
       {children}
     </Flex>
   </Flex>
@@ -61,7 +60,7 @@ export const HomePage = () => {
               bg: 'gray.100'
             },
             _dark: {
-              bg: 'gray.900'
+              bg: 'parsec.violet'
             },
             //bgImage: `url(${gridUrl})`,
             bgSize: 'contain',
@@ -71,13 +70,7 @@ export const HomePage = () => {
           }}
           //innerProps={{ bg: 'gray.700', borderRadius: '2rem', p: '2rem', minH: '25rem' }}
         >
-          <VStack
-            spacing="2rem"
-            fontSize="xl"
-            margin="auto"
-            px={{ base: 0, lg: '10rem' }}
-            maxW={{ base: '90vw', lg: '60vw' }}
-          >
+          <VStack spacing="2rem" fontSize="xl" margin="auto" px={{ base: 0, lg: '10rem' }}>
             <Heading fontSize="6xl" pb="6rem" textAlign="center" color={useColorModeValue('black', 'white')}>
               A versatile query engine for a complex world
             </Heading>
@@ -110,13 +103,7 @@ export const HomePage = () => {
           }}
           // nnerProps={{ bg: 'gray.700', borderRadius: '2rem', p: '4rem', minH: '25rem' }}
         >
-          <VStack
-            spacing="2rem"
-            fontSize="xl"
-            margin="auto"
-            px={{ base: 0, lg: '10rem' }}
-            maxW={{ base: '90vw', lg: '60vw' }}
-          >
+          <VStack spacing="2rem" fontSize="xl" margin="auto" px={{ base: 0, lg: '10rem' }}>
             <Heading fontSize="6xl" pb="3rem" textAlign="center">
               Why Parsec?
             </Heading>

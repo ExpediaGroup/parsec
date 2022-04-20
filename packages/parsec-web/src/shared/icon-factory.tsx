@@ -1,12 +1,14 @@
 import { Icon } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 import type { IconType } from 'react-icons';
-import { AiFillEdit, AiOutlineMenu } from 'react-icons/ai';
+import { AiFillEdit, AiFillHome, AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
+import { CgDockBottom, CgDockRight } from 'react-icons/cg';
 import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
+import { ImBooks } from 'react-icons/im';
 import { MdAdd } from 'react-icons/md';
-import { VscListTree, VscSettingsGear } from 'react-icons/vsc';
+import { VscListTree, VscPlay, VscSettingsGear } from 'react-icons/vsc';
 
 const icons = {
   chevronDown: GoChevronDown,
@@ -14,12 +16,17 @@ const icons = {
   chevronRight: GoChevronRight,
   chevronUp: GoChevronUp,
   close: GoX,
-  edit: AiFillEdit,
-  github: GoMarkGithub,
   darkMode: BsFillMoonStarsFill,
+  dockBottom: CgDockBottom,
+  dockRight: CgDockRight,
+  edit: AiFillEdit,
+  execute: VscPlay,
+  github: GoMarkGithub,
+  home: AiFillHome,
   lightMode: BsFillSunFill,
   menu: AiOutlineMenu,
   plus: MdAdd,
+  reference: ImBooks,
   settings: VscSettingsGear,
   tree: VscListTree,
   unknown: GrStatusUnknown
