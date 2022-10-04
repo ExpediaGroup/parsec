@@ -15,7 +15,6 @@
 (ns parsec.statements
   (:require [taoensso.timbre :as timbre]
             [criterium.core :as crit]
-            [incanter.datasets :as datasets]
             [incanter.stats :as stats]
 
             [parsec.input.bigquery :as bigquery :only [input-transform]]
@@ -23,6 +22,7 @@
             [parsec.input.http :as http :only [input-transform]]
             [parsec.input.influxdb :as influxdb :only [input-transform]]
             [parsec.input.jdbc :as jdbc :only [input-transform]]
+            [parsec.input.mock :as mock :only [input-transform]]
             [parsec.input.mongodb :as mongodb :only [input-transform]]
             [parsec.input.s3 :as s3 :only [input-transform]]
             [parsec.input.smb :as smb :only [input-transform]]
@@ -33,12 +33,7 @@
 
 (timbre/refer-timbre)
 
-(def mock-dataset
-  '({:col1 1, :col2 2, :col3 3, :col4 4}
-     {:col1 2, :col2 2, :col3 3, :col4 3}
-     {:col1 3, :col2 2, :col3 5, :col4 2}
-     {:col1 4, :col2 5, :col3 5, :col4 1}
-     {:col1 5, :col2 5, :col3 3, :col4 0}))
+
 
 (defn dataset-statement
   "Wrapper for statements that operate only on the current dataset. Returns a new
@@ -52,31 +47,7 @@
   "Loads a new dataset."
   [type options]
   (case type
-    :mock
-    (fn [context]
-      (let [options' (eval-expression-without-row options context)
-            n (to-number (options' :n))
-            name (options' :name)]
-        (let [mock (cond
-                     (not (nil? name))
-                     ;; Incanter dataset
-                     (incanter-to-maplist (datasets/get-dataset (keyword (:name options')) :incanter-home (:incanterHome options')))
-
-                     ;; Large mock dataset with N rows
-                     (not (nil? n))
-                     (map (fn [i] {:col1 i,
-                                   :col2 (- n i),
-                                   :col3 (mod i 5),
-                                   :col4 (mod i 8)
-                                   :col5 (Math/cos i)}) (range n))
-
-
-                     ;; Else default mock dataset
-                     :else
-                     mock-dataset)]
-
-          (assoc context :current-dataset mock))))
-
+    
     :datastore
     (fn [context]
       (let [options' (eval-expression-without-row options context)
@@ -87,6 +58,9 @@
 
     :bigquery
     (bigquery/input-transform options)
+    
+    :docs
+    (docs/input-transform options)
 
     :graphite
     (graphite/input-transform options)
@@ -99,6 +73,9 @@
 
     :jdbc
     (jdbc/input-transform options)
+    
+    :mock
+    (mock/input-transform options)
 
     :mongodb
     (mongodb/input-transform options)
