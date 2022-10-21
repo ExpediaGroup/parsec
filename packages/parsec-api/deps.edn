@@ -8,6 +8,7 @@
            ;; Web Service Dependencies
            compojure/compojure {:mvn/version "1.6.1"}
            ring/ring-defaults {:mvn/version "0.3.2"}
+           ring/ring-devel {:mvn/version "1.9.6"}
            ring/ring-json {:mvn/version "0.4.0"}
            ring-cors/ring-cors {:mvn/version "0.1.13"}
            ring/ring-jetty-adapter {:mvn/version "1.7.1"}
@@ -29,7 +30,7 @@
  :aliases {:build {:deps {io.github.clojure/tools.build
                           {:git/tag "v0.8.0" :git/sha "e3e3532"}}
                    :ns-default build}
-           
+
            :server {:extra-deps {mtkp/ring-dev {:git/url "https://github.com/mtkp/ring-dev"
                                                 :sha "330d8318790939a4b7d8cab01712415e63c62618"}}
                     :main-opts ["-m" "mtkp.ring-dev.main" "parsec.api.service/app"

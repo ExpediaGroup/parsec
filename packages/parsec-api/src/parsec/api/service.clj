@@ -25,6 +25,7 @@
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
             [ring.middleware.cors :refer [wrap-cors]]
+            [ring.middleware.reload :refer [wrap-reload]]
             [ring.util.response :refer [response]]
             [ring.adapter.jetty :refer [run-jetty]]
             [metrics.ring.expose :refer [expose-metrics-as-json]]
@@ -40,36 +41,36 @@
 
 ;; Custom DateTime encoders for clj-time/JodaTime
 (doall
-  (map #(add-encoder
-         %
-         (fn [c jsonGenerator]
-           (.writeString jsonGenerator (time-coerce/to-string c))))
-       [DateTime DateMidnight]))
+ (map #(add-encoder
+        %
+        (fn [c jsonGenerator]
+          (.writeString jsonGenerator (time-coerce/to-string c))))
+      [DateTime DateMidnight]))
 
 (add-encoder
-  Interval
-  (fn [c jsonGenerator]
-    (.writeNumber jsonGenerator (time/in-millis c))))
+ Interval
+ (fn [c jsonGenerator]
+   (.writeNumber jsonGenerator (time/in-millis c))))
 
 (add-encoder
-  ReadablePeriod
-  (fn [period jsonGenerator]
-    (.writeString jsonGenerator (.toString period))))
+ ReadablePeriod
+ (fn [period jsonGenerator]
+   (.writeString jsonGenerator (.toString period))))
 
 (add-encoder
-  AFunction
-  (fn [fn jsonGenerator]
-    (.writeString jsonGenerator (.toString fn))))
+ AFunction
+ (fn [fn jsonGenerator]
+   (.writeString jsonGenerator (.toString fn))))
 
 (add-encoder
-  parsec.functions.ParsecUdf
-  (fn [udf jsonGenerator]
-    (.writeString jsonGenerator (str "(" (join ", " (map name (:args udf))) ") -> " (:implementation udf)))))
+ parsec.functions.ParsecUdf
+ (fn [udf jsonGenerator]
+   (.writeString jsonGenerator (str "(" (join ", " (map name (:args udf))) ") -> " (:implementation udf)))))
 
 (add-encoder
-  ObjectId
-  (fn [objectId jsonGenerator]
-    (.writeString jsonGenerator (.toHexString objectId))))
+ ObjectId
+ (fn [objectId jsonGenerator]
+   (.writeString jsonGenerator (.toHexString objectId))))
 
 (defroutes
   api-routes
@@ -85,8 +86,8 @@
 
     (POST "/validate" request
       (response
-        (validate-query
-          (get-in request [:body "query"]))))))
+       (validate-query
+        (get-in request [:body "query"]))))))
 
 (defroutes
   site-routes
@@ -110,10 +111,29 @@
                  :access-control-allow-methods [:get :put :post]
                  :access-control-allow-headers ["Content-Type"])))
 
+(def app-with-reload
+  (wrap-reload #'app {:dirs ["src", "../parsec/src"]}))
 
 (add-shutdown-hook #(println "Shutting down Parsec"))
 
+(defonce ^:private server (atom nil))
+
+(defn stop-server
+  "Stops the server."
+  []
+  (when-not (nil? @server)
+    (println "Stopping Parsec")
+    (.stop @server)
+    (reset! server nil)))
+
+(defn create-server
+  "Creates a server with the given port."
+  [options]
+  (let [mergedOptions (merge {:port 8101 :join? false} options)]
+    (println "Starting Parsec on port" (:port mergedOptions))
+    (reset! server (run-jetty app-with-reload mergedOptions))))
+
 (defn -main
   "Run embedded jetty service."
-  [& args]
-  (run-jetty app {:port (:port config/parsec-config)}))
+  [& _args]
+  (create-server (merge {:join? true} config/parsec-config)))
