@@ -2,7 +2,7 @@ import { Icon } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 import type { IconType } from 'react-icons';
 import { AiFillEdit, AiFillHome, AiOutlineMenu } from 'react-icons/ai';
-import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
+import { BsCircleFill, BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { CgDockBottom, CgDockRight } from 'react-icons/cg';
 import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
@@ -15,6 +15,7 @@ const icons = {
   chevronLeft: GoChevronLeft,
   chevronRight: GoChevronRight,
   chevronUp: GoChevronUp,
+  circle: BsCircleFill,
   close: GoX,
   darkMode: BsFillMoonStarsFill,
   dockBottom: CgDockBottom,
