@@ -18,6 +18,7 @@
             [incanter.stats :as stats]
 
             [parsec.input.bigquery :as bigquery :only [input-transform]]
+            [parsec.input.docs :as docs :only [input-transform]]
             [parsec.input.graphite :as graphite :only [input-transform]]
             [parsec.input.http :as http :only [input-transform]]
             [parsec.input.influxdb :as influxdb :only [input-transform]]
@@ -47,7 +48,7 @@
   "Loads a new dataset."
   [type options]
   (case type
-    
+
     :datastore
     (fn [context]
       (let [options' (eval-expression-without-row options context)
@@ -58,7 +59,7 @@
 
     :bigquery
     (bigquery/input-transform options)
-    
+
     :docs
     (docs/input-transform options)
 
@@ -73,7 +74,7 @@
 
     :jdbc
     (jdbc/input-transform options)
-    
+
     :mock
     (mock/input-transform options)
 
@@ -170,20 +171,20 @@
   "Sorts the dataset by one or more keys."
   [& columns]
   (dataset-statement
-    (fn [dataset]
-      (letfn [(sort-recur
-                [cols result]
-                (if (empty? cols)
-                  result
-                  (recur (butlast cols)
-                         (let [c (last cols)
-                               key (c 0)
-                               order (c 1)
-                               cmp (if (= order :order-ascending)
-                                     compare
-                                     #(compare %2 %))]
-                           (sort-by key cmp result)))))]
-        (sort-recur columns dataset)))))
+   (fn [dataset]
+     (letfn [(sort-recur
+               [cols result]
+               (if (empty? cols)
+                 result
+                 (recur (butlast cols)
+                        (let [c (last cols)
+                              key (c 0)
+                              order (c 1)
+                              cmp (if (= order :order-ascending)
+                                    compare
+                                    #(compare %2 %))]
+                          (sort-by key cmp result)))))]
+       (sort-recur columns dataset)))))
 
 (defn select-statement
   "Leaves only the specified columns in each row."
@@ -260,11 +261,11 @@
                    [row-index row]
                    (if (or (nil? predicate) (predicate row context))
                      (reduce
-                       (fn [updated-row [assignment-key assignment-expression]]
+                      (fn [updated-row [assignment-key assignment-expression]]
                          ; Create a temporary context with the current-row-index set
-                         (let [temp-context (assoc context :current-row-index row-index)]
-                           (assoc updated-row assignment-key (assignment-expression updated-row temp-context))))
-                       row assignments)
+                        (let [temp-context (assoc context :current-row-index row-index)]
+                          (assoc updated-row assignment-key (assignment-expression updated-row temp-context))))
+                      row assignments)
                      row))]
            (assoc context :current-dataset (map-indexed evaluate-assignments dataset))))))))
 
@@ -284,11 +285,11 @@
              ;; e.g. {{:x 1} [{:x 1} {:x 1} {:x 1}]
              ;;       {:x 2} [{:x 2} {:x 2} {:x 2}]}
              grouped (group-by (fn [row] (reduce
-                                           (fn [result term]
-                                             (let [expr (if (vector? term) (last term) term)
-                                                   label (if (vector? term) (first term) term)
-                                                   group-value (eval-expression expr row context)]
-                                               (assoc result label group-value))) {} groups)) dataset)
+                                          (fn [result term]
+                                            (let [expr (if (vector? term) (last term) term)
+                                                  label (if (vector? term) (first term) term)
+                                                  group-value (eval-expression expr row context)]
+                                              (assoc result label group-value))) {} groups)) dataset)
 
              ;; Evaluate each group in turn, with a temp-context
              new-dataset (letfn [(evaluate-group
@@ -296,10 +297,10 @@
                                    ;; Apply each assignment in order on top of the group hash
                                    ;; Yields one row per group, including the keys from the group-hash and the assignments
                                    (reduce
-                                     (fn [result [assignment-key assignment-expression]]
-                                       (let [temp-context (assoc context :current-dataset group-rows :current-row-index row-index)]
-                                         (assoc result assignment-key (assignment-expression result temp-context))))
-                                     group-hash assignments))]
+                                    (fn [result [assignment-key assignment-expression]]
+                                      (let [temp-context (assoc context :current-dataset group-rows :current-row-index row-index)]
+                                        (assoc result assignment-key (assignment-expression result temp-context))))
+                                    group-hash assignments))]
                            (map-indexed evaluate-group grouped))]
 
          (assoc context :current-dataset new-dataset))))))
@@ -343,11 +344,11 @@
             ;; e.g. {{:x 1} [{:x 1} {:x 1} {:x 1}]
             ;;       {:x 2} [{:x 2} {:x 2} {:x 2}]}
             grouped (group-by (fn [row] (reduce
-                                          (fn [result term]
-                                            (let [expr (if (vector? term) (last term) term)
-                                                  label (if (vector? term) (first term) term)
-                                                  group-value (eval-expression expr row context)]
-                                              (assoc result label group-value))) {} groups)) dataset)
+                                         (fn [result term]
+                                           (let [expr (if (vector? term) (last term) term)
+                                                 label (if (vector? term) (first term) term)
+                                                 group-value (eval-expression expr row context)]
+                                             (assoc result label group-value))) {} groups)) dataset)
 
             ;; Evaluate each group in turn, with a temp-context
             new-dataset (letfn [(evaluate-group
@@ -356,11 +357,11 @@
                                         ;; Calculate Per combinations for each group
                                         ;; Per-groups consist of a vector of per-values, and a list of matching rows
                                         per-groups (group-by
-                                                     (fn [row] (reduce
-                                                                 (fn [result pterm]
-                                                                   (let [per-value (eval-expression pterm row temp-context)]
-                                                                     (conj result per-value))) [] per-terms))
-                                                     group-rows)
+                                                    (fn [row] (reduce
+                                                               (fn [result pterm]
+                                                                 (let [per-value (eval-expression pterm row temp-context)]
+                                                                   (conj result per-value))) [] per-terms))
+                                                    group-rows)
 
                                         final (reduce (fn [result [per per-rows]]
                                                         (let [temp-context (assoc context :current-dataset per-rows :current-row-index row-index)]
@@ -368,8 +369,8 @@
                                                                     (let [expr (if (vector? term) (last term) term)
                                                                           label (if (vector? term) (first term) term)]
                                                                       (assoc result
-                                                                        (per-formatter per label)
-                                                                        (eval-expression expr (first per-rows) temp-context))))
+                                                                             (per-formatter per label)
+                                                                             (eval-expression expr (first per-rows) temp-context))))
                                                                   result terms)))
                                                       group-hash per-groups)]
                                     final))]
@@ -399,8 +400,8 @@
                                                         (let [row' (apply dissoc row groups)]
                                                           (reduce (fn [result key]
                                                                     (conj result (assoc group-hash
-                                                                                   per-term (name key)
-                                                                                   term (get row' key))))
+                                                                                        per-term (name key)
+                                                                                        term (get row' key))))
                                                                   result (keys row'))))
                                                       '() group-rows)]
                                     final))]
@@ -462,8 +463,8 @@
     :FULL
     ; Union LEFT and RIGHT join
     (distinct (concat
-                (join-impl-nested-loops context :LEFT left left-alias right right-alias join-terms left-priority)
-                (join-impl-nested-loops context :LEFT right right-alias left left-alias join-terms (not left-priority))))
+               (join-impl-nested-loops context :LEFT left left-alias right right-alias join-terms left-priority)
+               (join-impl-nested-loops context :LEFT right right-alias left left-alias join-terms (not left-priority))))
     :RIGHT
     ; Swap table order and do a LEFT join
     (join-impl-nested-loops context :LEFT right right-alias left left-alias join-terms (not left-priority))
@@ -478,12 +479,12 @@
     (let [result (map (fn [left-row]
                         (let [temp-context (assoc context :join-targets {left-alias left-row})
                               matches (filter
-                                        (fn [right-row]
-                                          (let [temp-context (assoc-in temp-context [:join-targets right-alias] right-row)
-                                                temp-row (merge-with-priority left-row right-row left-priority)
-                                                join-terms' (map (fn [join-term] (join-term temp-row temp-context)) join-terms)]
-                                            (every? true? join-terms')))
-                                        right)]
+                                       (fn [right-row]
+                                         (let [temp-context (assoc-in temp-context [:join-targets right-alias] right-row)
+                                               temp-row (merge-with-priority left-row right-row left-priority)
+                                               join-terms' (map (fn [join-term] (join-term temp-row temp-context)) join-terms)]
+                                           (every? true? join-terms')))
+                                       right)]
                           (if (> (count matches) 0)
                             (map #(merge-with-priority left-row % left-priority) matches)
                             (if (= :LEFT join-type)
@@ -524,6 +525,6 @@
           performance (map #(:performance %) (:results bench-results))
           summary (with-out-str (crit/report-result bench-results [:os :runtime :verbose]))
           output-dataset [(assoc (dissoc bench-results :runtime-details :os-details :results)
-                            :performance performance
-                            :summary summary)]]
+                                 :performance performance
+                                 :summary summary)]]
       (assoc context :current-dataset output-dataset))))
