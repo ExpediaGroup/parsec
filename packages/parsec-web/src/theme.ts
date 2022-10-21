@@ -27,6 +27,14 @@ export const parsecTheme = extendTheme({
         200: '#b5b1b2',
         400: '#dbdeef',
         900: '#f8f8f8'
+      },
+      tokens: {
+        symbol: '#8F8F8F',
+        statement: '#0074d9',
+        function: '#2ecc40',
+        literal: '#ff4136',
+        operator: '#ff851b',
+        input: '#ffdc00'
       }
     },
     synthwave: {
