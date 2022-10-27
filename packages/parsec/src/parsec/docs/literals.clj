@@ -18,16 +18,14 @@
   '({:name "null"
      :type "literal"
      :syntax ["null"]
-     :description ["The keyword \"null\" represents the absence of value.
-                     
-                     Generally, operators and functions applied to null values tend to return null."]
+     :description ["The keyword \"null\" represents the absence of value."
+                   "Generally, operators and functions applied to null values tend to return null."]
      :examples [{:q "set @x = null"}]}
     {:name "true"
      :type "literal"
      :syntax ["true"]
-     :description ["The keyword \"true\" represents the boolean truth value. It can be used in equality/inequality expressions, or assigned to columns or variables.
-                              
-                    Non-zero numbers are considered true from a boolean perspective."]
+     :description ["The keyword \"true\" represents the boolean truth value. It can be used in equality/inequality expressions, or assigned to columns or variables."
+                   "Non-zero numbers are considered true from a boolean perspective."]
      :examples [{:q "set @truth = true"}
                 {:description "Non-zero numbers are considered true from a boolean perspective"
                  :q "set @truth = (1 == true)"}]
@@ -35,10 +33,8 @@
     {:name "false"
      :type "literal"
      :syntax ["false"]
-     :description "
-                The keyword \"false\" represents the boolean falsehood value It can be used in equality/inequality expressions, or assigned to columns or variables.
-                     
-                Zero numbers are considered false from a boolean perspective."
+     :description ["The keyword \"false\" represents the boolean falsehood value It can be used in equality/inequality expressions, or assigned to columns or variables."
+                   "Zero numbers are considered false from a boolean perspective."]
      :examples [{:q "set @truth = false"}
                 {:description "Zero numbers are considered false from a boolean perspective"
                  :q "set @truth = (0 == false)"}]
@@ -48,9 +44,8 @@
      :syntax ["Regex: /[-+]?(0(.\\d*)?|([1-9]\\d*.?\\d*)|(.\\d+))([Ee][+-]?\\d+)?/"
               "Regex: /[-+]?(0(.\\d*)?|([1-9]\\d*.?\\d*)|(.\\d+))([Ee][+-]?\\d+)?[%]/"]
      :returns "number"
-     :description ["Internally, Parsec supports the full range of JVM primitive numbers, as well as BigInteger, BigDecimal, and Ratios.
-                    
-                    A number that ends with a percent sign indicates a percentage.  The numerical value of the number will be divided by 100."]
+     :description ["Internally, Parsec supports the full range of JVM primitive numbers, as well as BigInteger, BigDecimal, and Ratios."
+                   "A number that ends with a percent sign indicates a percentage.  The numerical value of the number will be divided by 100."]
      :examples [{:description "Integer"
                  :q "set @x = 100"}
                 {:description "Floating-point (double) number"
@@ -63,11 +58,9 @@
      :type "literal"
      :syntax ["Regex: /[a-zA-Z_][a-zA-Z0-9_]*/"
               "Regex: /`[^`]+`/"]
-     :description ["Identifiers are alpha-numeric strings used to reference columns in the current dataset.
-                     
-                    There are two possible forms for identifiers: the primary form must start with a letter or underscore, and may only contain letters, numbers, or underscores. The alternate form uses two backtick (`) characters to enclose any string of characters, including spaces or special characters (except backticks).
-                     
-                    Identifiers are case-sensitive."]
+     :description ["Identifiers are alpha-numeric strings used to reference columns in the current dataset."
+                   "There are two possible forms for identifiers: the primary form must start with a letter or underscore, and may only contain letters, numbers, or underscores. The alternate form uses two backtick (`) characters to enclose any string of characters, including spaces or special characters (except backticks)."
+                   "Identifiers are case-sensitive."]
      :examples [{:description "Primary form"
                  :q "input mock | col6 = col5"}
                 {:description "Backtick form allows spaces and special characters"
@@ -75,9 +68,8 @@
     {:name "\"variable\""
      :type "literal"
      :syntax ["Regex: /@[a-zA-Z0-9_]+[']?/"]
-     :description ["Variables are alpha-numeric strings prefixed with an at symbol (@). A trailing single-quote character is allowed, representing the prime symbol.
-                    
-                     Unlike identifiers, variables are not associated with rows in the current dataset. Variables are stored in the context and available throughout the evaluation of a query (once they have been set)."]
+     :description ["Variables are alpha-numeric strings prefixed with an at symbol (@). A trailing single-quote character is allowed, representing the prime symbol."
+                   "Unlike identifiers, variables are not associated with rows in the current dataset. Variables are stored in the context and available throughout the evaluation of a query (once they have been set)."]
      :examples [{:description "Setting a variable"
                  :q "set @fruit = \" banana \""}
                 {:description "Storing a calculated value in a variable"
@@ -89,11 +81,9 @@
      :type "literal"
      :syntax ["TBD"]
      :returns "string"
-     :description ["Strings can be created by wrapping text in single or double-quote characters. The quote character can be escaped inside a string using \\\" or \\'.
-                    
-                     Strings can also be created using a triple single-quote, which has the benefit of allowing single and double quote characters to be used unescaped.  Naturally, a triple single quote can be escaped inside a string using \\'''.
-                    
-                     Standard escape characters can be used inside a string, e.g.: \\n, \\r, \\t, \\\\, etc."]
+     :description ["Strings can be created by wrapping text in single or double-quote characters. The quote character can be escaped inside a string using \\\" or \\'."
+                   "Strings can also be created using a triple single-quote, which has the benefit of allowing single and double quote characters to be used unescaped.  Naturally, a triple single quote can be escaped inside a string using \\'''."
+                   "Standard escape characters can be used inside a string, e.g.: \\n, \\r, \\t, \\\\, etc."]
      :examples [{:description "Single-quoted string"
                  :q "set @msg = 'hello world'"}
                 {:description "Double-quoted string"
