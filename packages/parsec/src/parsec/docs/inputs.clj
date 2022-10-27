@@ -15,7 +15,13 @@
 (ns parsec.docs.inputs)
 
 (def tokens
-  '({:name "mock"
+  '({:name "docs"
+     :type "input"
+     :syntax ["input docs"]
+     :description ["The docs input type is for retrieving information about Parsec itself.  It provides details about the syntax of Parsec and its statements, functions, operators, etc."]
+     :examples [{:q "input docs"}]
+     :related ["statement:input"]}
+    {:name "mock"
      :type "input"
      :syntax ["input mock"
               "input mock n=:number"

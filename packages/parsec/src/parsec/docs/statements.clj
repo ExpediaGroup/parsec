@@ -22,7 +22,7 @@
                  :q "input mock"}
                 {:description "Several named datasets are included in the mock input"
                  :q "input mock name=\"chick-weight\""}]
-     :related ["input:mock", "input:datastore", "input:graphite", "input:http",  "input:influxdb", "input:jdbc", "input:mongodb", "input:smb", "input:s3"]}
+     :related ["input:mock", "input:datastore", "input:docs", "input:graphite", "input:http",  "input:influxdb", "input:jdbc", "input:mongodb", "input:smb", "input:s3"]}
     {:name "output"
      :type "statement"
      :syntax ["output name=\":name\" :options"
