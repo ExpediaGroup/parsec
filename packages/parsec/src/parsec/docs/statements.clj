@@ -17,7 +17,7 @@
 (def tokens
   '({:name "input"
      :type "statement"
-     :description ['The input statement loads a dataset from various possible sources. Different input sources are available, like mock, jdbc, and http. Each source has various options for configuring it. If a dataset is already in the pipeline, it will be replaced.']
+     :description ["The input statement loads a dataset from various possible sources. Different input sources are available, like mock, jdbc, and http. Each source has various options for configuring it. If a dataset is already in the pipeline, it will be replaced."]
      :examples [{:description "Loading mock data from the built-in mock input"
                  :q "input mock"}
                 {:description "Several named datasets are included in the mock input"
