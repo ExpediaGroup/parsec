@@ -13,7 +13,8 @@
 ;; limitations under the License.
 
 (ns parsec.input.docs
-  (:require [parsec.docs.functions :as functions]
+  (:require [clojure.string :refer [join]]
+            [parsec.docs.functions :as functions]
             [parsec.docs.inputs :as inputs]
             [parsec.docs.literals :as literals]
             [parsec.docs.operators :as operators]
@@ -32,6 +33,13 @@
                        literals/tokens
                        operators/tokens
                        statements/tokens
-                       symbols/tokens)]
+                       symbols/tokens)
+          docs' (map (fn [token]
+                       (let [{:keys [altName name subtype type]} token]
+                         (assoc token
+                                :key (join ":" (remove nil? [type name altName]))
+                                :typeKey (str "type:" type)
+                                :subtypeKey (str "subtype:" subtype))))
+                     docs)]
 
-      (assoc context :current-dataset docs))))
+      (assoc context :current-dataset docs'))))
