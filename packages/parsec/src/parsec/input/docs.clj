@@ -13,10 +13,12 @@
 ;; limitations under the License.
 
 (ns parsec.input.docs
-  (:require [parsec.docs.symbols :as symbols]
+  (:require [parsec.docs.functions :as functions]
+            [parsec.docs.inputs :as inputs]
             [parsec.docs.literals :as literals]
             [parsec.docs.operators :as operators]
-            [parsec.docs.statements :as statements]))
+            [parsec.docs.statements :as statements]
+            [parsec.docs.symbols :as symbols]))
 
 ; Options:
 ; TBD
@@ -25,7 +27,9 @@
   "Returns documentation data for Parsec"
   [_options]
   (fn [context]
-    (let [docs (concat literals/tokens
+    (let [docs (concat functions/tokens
+                       inputs/tokens
+                       literals/tokens
                        operators/tokens
                        statements/tokens
                        symbols/tokens)]
