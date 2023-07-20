@@ -1,3 +1,7 @@
+# Parsec
+
+This package contains the core logic for the Parsec query engine.
+
 ## Tests
 
 Run tests like this:

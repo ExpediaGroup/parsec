@@ -58,7 +58,7 @@ The engine of Parsec is split into three components:
 The context-free grammar behind Parsec is defined in
 [Extended Backus–Naur Form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form).
 This grammar is used to generate a parser which converts user-provided queries into an
-expression tree.  The expression tree has no logic or implementation details;
+expression tree. The expression tree has no logic or implementation details;
 it is merely a representation of the query.
 
 #### Optimizer
@@ -69,7 +69,7 @@ if possible, rewritten into a more efficient form.
 #### Executor
 
 The optimized expression tree is traversed depth-first and transformed into a
-series of nested functions.  When executed, these functions will perform
+series of nested functions. When executed, these functions will perform
 the steps of the query as written, returning the final output.
 
 ## Using Parsec
@@ -78,34 +78,57 @@ the steps of the query as written, returning the final output.
 
 Parsec is written in Clojure and runs in the JVM.
 
-* Java 11 or greater
-* [Leiningen](http://leiningen.org/)  _(required only to compile Parsec)_
+- Java 11 or greater
+- [Clojure](https://clojure.org/guides/install_clojure) 1.10.3 or greater
 
 ### Building Parsec
 
-    ./lein uberjar
+This repository contains several packages, each of which can be built independently. For detailed
+instructions, see the README.md file in each package.
 
-This creates a standalone jar in the `parsec/target/uberjar` folder.
+The Clojure projects are built using [tools.build](https://clojure.org/guides/tools_build). The
+following commands are available:
+
+- `clojure -T:build clean` - Delete all build artifacts
+- `clojure -T:build jar` - Build a source jar
+- `clojure -T:build uber` - Build an uberjar
+- `clojure -X:test` - Run tests
+
+To build the Parsec API service, use the following commands:
+
+```sh
+cd packages/parsec-api
+clojure -T:build uber
+```
+
+This creates a standalone uberjar in the `packages/parsec-api/target/uberjar` folder.
+
+To build the Parsec web UI, use the following commands:
+
+```sh
+cd packages/parsec-web
+nvm use
+npm install
+npm run build
+```
 
 ### Running Parsec
 
-    ./lein ring server
+The Parsec API service can be launched from the uberjar like this:
+
+```sh
+java -cp "packages/parsec-api/target/uberjar/parsec-api-VERSION-standalone.jar" parsec.api.service
+```
+
+This launches the service on port 8101.
+
+The Parsec web UI can be launched from the `packages/parsec-web` folder like this:
+
+```sh
+npm start
+```
 
 This starts a local development server and automatically opens `http://localhost:8101/` in a browser.
-
-### Running Tests
-
-Run all tests and report any failures:
-
-    ./lein test
-
-Run all tests and generate a code-coverage report:
-
-    ./lein cloverage
-
-Watch for changes and automatically trigger tests:
-
-    ./lein test-refresh
 
 ### Docker
 
@@ -131,4 +154,4 @@ Pull requests are welcome. Please refer to our [CONTRIBUTING](./CONTRIBUTING.md)
 
 This project is available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
-Copyright 2020-2022 Expedia, Inc.
+Copyright 2020-2023 Expedia, Inc.
