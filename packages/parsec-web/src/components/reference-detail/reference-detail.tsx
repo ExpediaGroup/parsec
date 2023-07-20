@@ -1,7 +1,8 @@
-import { Badge, Button, Heading, HStack, Text, VStack, Wrap } from '@chakra-ui/react';
+import { Badge, Button, Code, Heading, HStack, Text, VStack, Wrap } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
 import { iconFactoryAs } from '../../shared/icon-factory';
+import { FancyCode } from '../../ui/fancy-code/fancy-code';
 import { Link } from '../../ui/link/link';
 import { ReferenceToken } from '../reference-token/reference-token';
 
@@ -48,7 +49,7 @@ export const ReferenceDetail = ({ tokens }: ReferenceDetailProps) => {
             Syntax
           </Heading>
           {token.syntax.map((syntax: any, i: number) => (
-            <Text key={i}>{syntax}</Text>
+            <Code key={i}>{syntax}</Code>
           ))}
         </>
       )}
@@ -59,7 +60,9 @@ export const ReferenceDetail = ({ tokens }: ReferenceDetailProps) => {
             Examples
           </Heading>
           {token.examples.map((example: any, i: number) => (
-            <Text key={i}>{example.q}</Text>
+            <FancyCode language="parsec" key={i}>
+              {example.q}
+            </FancyCode>
           ))}
         </>
       )}

@@ -14,7 +14,7 @@ import {
 import type { ResizableProps } from 're-resizable';
 
 import type { ExecutionResultDataSet } from '../../types/parsec';
-import { Code } from '../code/code';
+import { FancyCode } from '../../ui/fancy-code/fancy-code';
 
 import { ExecutionResultDataSetView } from './execution-result-dataset-view';
 
@@ -48,10 +48,10 @@ export const ExecutionResult = ({ results, ...props }: ExecutionResultProps) => 
               </VStack>
             </TabPanel>
             <TabPanel>
-              <Code language="clojure">{results?.prettyParsedTree}</Code>
+              <FancyCode language="clojure">{results?.prettyParsedTree}</FancyCode>
             </TabPanel>
             <TabPanel>
-              <Code language="json">{JSON.stringify(results, undefined, 2)}</Code>
+              <FancyCode language="json">{JSON.stringify(results, undefined, 2)}</FancyCode>
             </TabPanel>
           </TabPanels>
         </Tabs>

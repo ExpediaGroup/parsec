@@ -9,14 +9,17 @@ import { ghcolors, synthwave84, tomorrow } from 'react-syntax-highlighter/dist/e
 import darkStyle from './style-parsec-dark.js';
 import lightStyle from './style-parsec.js';
 
-export type CodeProps = {
+export type FancyCodeProps = {
   children?: string;
   language: string;
   showLineNumbers?: boolean;
   theme?: string;
 } & BoxProps;
 
-export const Code = memo(({ children, language, showLineNumbers, theme, ...boxProps }: CodeProps) => {
+/**
+ * Code component that displays a code snippet with syntax highlighting.
+ */
+export const FancyCode = memo(({ children, language, showLineNumbers, theme, ...boxProps }: FancyCodeProps) => {
   const defaultStyle: any = useColorModeValue(lightStyle, darkStyle);
 
   return (
