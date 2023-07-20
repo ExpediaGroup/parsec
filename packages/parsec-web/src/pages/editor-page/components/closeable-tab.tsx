@@ -1,17 +1,18 @@
-import { Box, Button, IconButton, Spinner, useColorModeValue, useMultiStyleConfig, useTab } from '@chakra-ui/react';
+import { Box, Button, IconButton, useColorModeValue, useMultiStyleConfig, useTab } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 import React from 'react';
 
 import { iconFactoryAs } from '../../../shared/icon-factory';
+import { Spinner } from '../../../ui/spinner/spinner';
 
-interface Props {
+export interface ClosableTabProps {
   key: string;
   children: ReactNode;
   isLoading?: boolean;
   onClose: () => void;
 }
 
-export const ClosableTab = React.forwardRef<HTMLElement, Props>((props, ref) => {
+export const ClosableTab = React.forwardRef<HTMLElement, ClosableTabProps>((props, ref) => {
   const { isLoading, onClose, ...rest } = props;
   const tabProps = useTab({ ...rest, ref });
   const styles = useMultiStyleConfig('Tabs', tabProps);
@@ -30,9 +31,7 @@ export const ClosableTab = React.forwardRef<HTMLElement, Props>((props, ref) => 
       _focus={{ boxShadow: 'none' }}
       {...tabProps}
     >
-      {isLoading === true && (
-        <Spinner thickness="2px" speed="0.65s" emptyColor="gray.200" color="parsec.blue" size="md" mr="0.5rem" />
-      )}
+      {isLoading === true && <Spinner thickness="2px" color="parsec.blue" size="md" mr="0.5rem" />}
 
       {tabProps.children}
 

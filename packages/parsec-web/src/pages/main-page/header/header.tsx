@@ -17,8 +17,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import parsecLogoUrl from '../../../../assets/parsec-logo.svg';
-import { Link } from '../../../components/link/link';
 import { iconFactory, iconFactoryAs } from '../../../shared/icon-factory';
+import { Link } from '../../../ui/link/link';
 
 import { Stripes } from './stripes';
 

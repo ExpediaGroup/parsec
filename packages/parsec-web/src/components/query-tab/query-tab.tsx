@@ -23,18 +23,18 @@ import { EditorLayout } from '../../store/editor.slice';
 import { editorSlice } from '../../store/editor.slice';
 import { useExecuteQueryMutation, useValidateQueryMutation } from '../../store/parsec.slice';
 import type { RootState } from '../../store/store';
+import { IconButtonMenu } from '../../ui/icon-button-menu/icon-button-menu';
 import { Editor } from '../editor/editor';
 import { ExecutionResult } from '../execution-result/execution-result';
-import { IconButtonMenu } from '../icon-button-menu/icon-button-menu';
 
-interface Props {
+export type QueryTabProps = {
   tab: QueryTabState;
   query: string;
   onLabelChange?: (label: string) => void;
   onRunningChange?: (isLoading: boolean) => void;
   onQueryChange?: (query: string) => void;
   readOnly?: boolean;
-}
+} & Omit<FlexProps, 'direction'>;
 
 export const QueryTab = ({
   tab,
@@ -44,7 +44,7 @@ export const QueryTab = ({
   onRunningChange,
   readOnly = false,
   ...flexProps
-}: Props & Omit<FlexProps, 'direction'>) => {
+}: QueryTabProps) => {
   const dispatch = useDispatch();
   const { layout } = useSelector((state: RootState) => state.editor);
 

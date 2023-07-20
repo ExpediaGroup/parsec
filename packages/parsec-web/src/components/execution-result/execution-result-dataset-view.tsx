@@ -1,33 +1,33 @@
 import {
-  Heading,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  useDisclosure,
   Collapse,
+  Heading,
   HStack,
   IconButton,
-  useColorModeValue
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useColorModeValue,
+  useDisclosure
 } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import type { Cell } from 'react-table';
 import { useTable } from 'react-table';
 
-import { Card } from '../../card/card';
 import { iconFactoryAs } from '../../shared/icon-factory';
 import type { ExecutionResultDataSet } from '../../types/parsec';
+import { Card } from '../../ui/card/card';
 
 import { CellRenderer } from './cell-renderer';
 
-interface Props {
+export interface ExecutionResultDataSetViewProps {
   dataSet: ExecutionResultDataSet;
 }
 
-export const ExecutionResultDataSetView = ({ dataSet }: Props) => {
+export const ExecutionResultDataSetView = ({ dataSet }: ExecutionResultDataSetViewProps) => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
 
   const data = dataSet.data;

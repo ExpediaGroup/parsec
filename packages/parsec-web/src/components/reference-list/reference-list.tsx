@@ -1,5 +1,6 @@
-import { Alert, AlertDescription, AlertIcon, HStack, Spinner, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 
+import { LoadingContainer } from '../../ui/loading-container/loading-container';
 import { ReferenceToken } from '../reference-token/reference-token';
 
 interface ReferenceListProps {
@@ -8,19 +9,10 @@ interface ReferenceListProps {
 }
 
 export const ReferenceList = ({ isLoading, tokens }: ReferenceListProps) => {
+  const error = !isLoading && !tokens ? 'Error loading reference data' : undefined;
+
   return (
-    <>
-      {isLoading && (
-        <HStack justify="center" pt="2rem">
-          <Spinner thickness="3px" speed="0.65s" emptyColor="gray.200" color="parsec.pink" size="xl" mr="0.5rem" />
-        </HStack>
-      )}
-      {!isLoading && !tokens && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertDescription>Error loading reference data</AlertDescription>
-        </Alert>
-      )}
+    <LoadingContainer isLoading={isLoading} error={error} loadingProps={{ pt: '2rem' }}>
       {tokens && (
         <VStack spacing="0.5rem" align="stretch" p="0.5rem">
           {tokens.map((token: any) => (
@@ -28,6 +20,6 @@ export const ReferenceList = ({ isLoading, tokens }: ReferenceListProps) => {
           ))}
         </VStack>
       )}
-    </>
+    </LoadingContainer>
   );
 };

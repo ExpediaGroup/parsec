@@ -1,7 +1,7 @@
 import { Box, IconButton, Icon, Menu, MenuButton, MenuList, Tooltip, forwardRef } from '@chakra-ui/react';
 import type { ReactNode, ElementType } from 'react';
 
-interface Props {
+export interface IconButtonMenuProps {
   'aria-label': string;
   bg?: string;
   color?: string;
@@ -35,6 +35,9 @@ const TooltipIcon = forwardRef(
   }
 );
 
+/**
+ * IconButton that opens a menu on click.
+ */
 export const IconButtonMenu = ({
   'aria-label': ariaLabel,
   bg,
@@ -45,7 +48,7 @@ export const IconButtonMenu = ({
   size,
   tooltip,
   variant
-}: Props) => {
+}: IconButtonMenuProps) => {
   return (
     <Menu>
       <MenuButton

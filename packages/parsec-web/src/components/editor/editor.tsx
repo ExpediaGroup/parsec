@@ -9,13 +9,13 @@ import 'ace-builds/src-noconflict/theme-nord_dark';
 import 'ace-builds/src-noconflict/theme-tomorrow_night_eighties';
 import 'ace-builds/src-noconflict/mode-markdown';
 
-interface Props {
+export interface EditorProps {
   query: string;
   onQueryChange?: (updatedValue: string) => any;
   readOnly?: boolean;
 }
 
-export const Editor = ({ query, onQueryChange, readOnly = false }: Props) => {
+export const Editor = ({ query, onQueryChange, readOnly = false }: EditorProps) => {
   const aceTheme = useColorModeValue('parsec', 'parsec_dark');
 
   const { width, height, ref } = useResizeDetector();

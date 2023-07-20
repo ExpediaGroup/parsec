@@ -9,7 +9,9 @@ import { QueriesPage } from '../queries-page/queries-page';
 import { ReferencePage } from '../reference-page/reference-page';
 import { SettingsPage } from '../settings-page/settings-page';
 
-export const Sidebar = ({ ...flexProps }: FlexProps & ResizableProps) => {
+export type SidebarProps = FlexProps & ResizableProps;
+
+export const Sidebar = ({ ...flexProps }: SidebarProps) => {
   return (
     <Flex flexDirection="column" overflow="auto" align="stretch" {...flexProps}>
       <ErrorBoundary

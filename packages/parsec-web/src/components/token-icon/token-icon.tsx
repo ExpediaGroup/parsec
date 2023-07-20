@@ -3,11 +3,11 @@ import { Flex, Icon, Tooltip } from '@chakra-ui/react';
 
 import { iconFactory } from '../../shared/icon-factory';
 
-export interface TokenIconProps {
+export type TokenIconProps = {
   type: string;
-}
+} & IconProps;
 
-export const TokenIcon = ({ type, ...props }: TokenIconProps & IconProps) => {
+export const TokenIcon = ({ type, ...props }: TokenIconProps) => {
   return (
     <Tooltip label={`Token type: ${type}`} aria-label={`Token type: ${type}`}>
       <Flex flexDirection="column" align="center">

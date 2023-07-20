@@ -18,11 +18,12 @@ import { Code } from '../code/code';
 
 import { ExecutionResultDataSetView } from './execution-result-dataset-view';
 
-interface Props {
+export type ExecutionResultProps = {
   results: any;
-}
+} & FlexProps &
+  ResizableProps;
 
-export const ExecutionResult = ({ results, ...props }: Props & FlexProps & ResizableProps) => {
+export const ExecutionResult = ({ results, ...props }: ExecutionResultProps) => {
   return (
     <Flex flexDirection="column" align="stretch" overflow="hidden" {...props}>
       {results && (

@@ -1,7 +1,12 @@
 import type { FlexProps } from '@chakra-ui/react';
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 
-export const Card = ({ children, ...flexProps }: FlexProps) => {
+export type CardProps = FlexProps;
+
+/**
+ * Card component.
+ */
+export const Card = ({ children, ...flexProps }: CardProps) => {
   return (
     <Flex
       flexDirection="column"

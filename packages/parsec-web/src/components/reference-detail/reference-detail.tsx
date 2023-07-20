@@ -2,7 +2,7 @@ import { Badge, Button, Heading, HStack, Text, VStack, Wrap } from '@chakra-ui/r
 import { useParams } from 'react-router-dom';
 
 import { iconFactoryAs } from '../../shared/icon-factory';
-import { Link } from '../link/link';
+import { Link } from '../../ui/link/link';
 import { ReferenceToken } from '../reference-token/reference-token';
 
 interface ReferenceDetailProps {

@@ -6,7 +6,7 @@ import type { IconFactoryKeys } from '../../shared/icon-factory';
 import { iconFactoryAs } from '../../shared/icon-factory';
 import { Activity, appSlice } from '../../store/app.slice';
 import type { RootState } from '../../store/store';
-import { Link } from '../link/link';
+import { Link } from '../../ui/link/link';
 
 import { Stripes } from './stripes';
 

@@ -1,22 +1,9 @@
-import type { FlexProps } from '@chakra-ui/react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { Button, Flex, Heading, Image, Stack, Text, VStack } from '@chakra-ui/react';
 
 import parsecLogoUrl from '../../../assets/parsec-logo.svg';
-import { Link } from '../../components/link/link';
-
-interface Props {
-  innerProps?: FlexProps;
-  outerProps?: FlexProps;
-  children?: JSX.Element;
-}
-const Section = ({ children, innerProps, outerProps }: Props) => (
-  <Flex direction="row" minHeight="80vh" align="center" justify="center" {...outerProps}>
-    <Flex direction="column" align="stretch" flexGrow={1} {...innerProps}>
-      {children}
-    </Flex>
-  </Flex>
-);
+import { Link } from '../../ui/link/link';
+import { Section } from '../../ui/section/section';
 
 export const HomePage = () => {
   return (

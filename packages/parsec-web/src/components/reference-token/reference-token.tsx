@@ -1,6 +1,6 @@
 import { HStack, Heading } from '@chakra-ui/react';
 
-import { Link } from '../link/link';
+import { Link } from '../../ui/link/link';
 import { TokenIcon } from '../token-icon/token-icon';
 
 interface ReferenceTokenProps {
