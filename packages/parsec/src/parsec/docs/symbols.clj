@@ -19,7 +19,7 @@
      :altName "query separator"
      :type "symbol"
      :syntax ["query1; query2", "query1; query2; query3 ..."]
-     :description "The query separator is used to separate two distinct Parsec queries. The queries will be executed sequentially with a shared context."
+     :description ["The query separator is used to separate two distinct Parsec queries. The queries will be executed sequentially with a shared context."]
      :examples [{:q "input mock; input mock"}]}
     {:name "/* */"
      :altName "comment block"

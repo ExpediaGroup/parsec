@@ -4,7 +4,7 @@ import type { IconType } from 'react-icons';
 import { AiFillEdit, AiFillHome, AiOutlineMenu } from 'react-icons/ai';
 import { BsCircleFill, BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { CgDockBottom, CgDockRight } from 'react-icons/cg';
-import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoX } from 'react-icons/go';
+import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoSearch, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
 import { ImBooks } from 'react-icons/im';
 import { MdAdd } from 'react-icons/md';
@@ -28,6 +28,7 @@ const icons = {
   menu: AiOutlineMenu,
   plus: MdAdd,
   reference: ImBooks,
+  search: GoSearch,
   settings: VscSettingsGear,
   tree: VscListTree,
   unknown: GrStatusUnknown

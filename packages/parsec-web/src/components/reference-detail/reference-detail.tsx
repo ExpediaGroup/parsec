@@ -1,7 +1,10 @@
 import { Badge, Button, Code, Heading, HStack, Text, VStack, Wrap } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { iconFactoryAs } from '../../shared/icon-factory';
+import { referenceSlice } from '../../store/reference.slice';
+import type { AppDispatch } from '../../store/store';
 import { FancyCode } from '../../ui/fancy-code/fancy-code';
 import { Link } from '../../ui/link/link';
 import { ReferenceToken } from '../reference-token/reference-token';
@@ -11,15 +14,25 @@ interface ReferenceDetailProps {
 }
 
 export const ReferenceDetail = ({ tokens }: ReferenceDetailProps) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { key } = useParams();
 
   if (!tokens) {
     return <></>;
   }
 
+  const setSearch = (search: string) => {
+    dispatch(referenceSlice.actions.clearTokenType());
+    dispatch(referenceSlice.actions.setSearch(search));
+    navigate('/reference');
+  };
+
   const token = tokens.find((token: any) => token.key === key);
 
-  console.log('token', token);
+  if (!token) {
+    return <></>;
+  }
 
   return (
     <VStack spacing="1rem" align="stretch">
@@ -31,7 +44,12 @@ export const ReferenceDetail = ({ tokens }: ReferenceDetailProps) => {
       <VStack align="flex-start">
         <ReferenceToken token={token} link={false} size="lg" />
         <HStack>
-          <Badge>{token.type}</Badge> <Badge>{token.subtype}</Badge>
+          <Badge cursor="pointer" onClick={() => setSearch(`type:${token.type}`)}>
+            {token.type}
+          </Badge>{' '}
+          <Badge cursor="pointer" onClick={() => setSearch(`subtype:${token.subtype}`)}>
+            {token.subtype}
+          </Badge>
         </HStack>
       </VStack>
 

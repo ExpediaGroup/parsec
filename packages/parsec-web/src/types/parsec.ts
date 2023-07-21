@@ -23,3 +23,20 @@ export interface ExecutionResult {
   errors: any[];
   dataSets: ExecutionResultDataSet[];
 }
+
+export type ReferenceToken = {
+  key: string;
+  typekey: string;
+  subtypekey: string;
+  name: string;
+  altName?: string;
+  description: any;
+  type: TokenType;
+  subtype: any;
+  syntax: any;
+  examples?: any[];
+  aliases?: any[];
+  related?: any[];
+};
+
+export type TokenType = 'function' | 'input' | 'literal' | 'operator' | 'statement' | 'symbol';

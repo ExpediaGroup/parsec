@@ -6,10 +6,12 @@ import storage from 'redux-persist/lib/storage';
 import { appSlice, appListener } from './app.slice';
 import { editorSlice } from './editor.slice';
 import { parsecApi } from './parsec.slice';
+import { referenceSlice } from './reference.slice';
 
 export const rootReducer = combineReducers({
   app: appSlice.reducer,
   editor: editorSlice.reducer,
+  reference: referenceSlice.reducer,
   [parsecApi.reducerPath]: parsecApi.reducer
 });
 

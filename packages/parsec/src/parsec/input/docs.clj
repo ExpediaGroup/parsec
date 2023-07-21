@@ -37,7 +37,7 @@
           docs' (map (fn [token]
                        (let [{:keys [altName name subtype type]} token]
                          (assoc token
-                                :key (join ":" (remove nil? [type name altName]))
+                                :key (join ":" [type (if altName altName name)])
                                 :typeKey (str "type:" type)
                                 :subtypeKey (str "subtype:" subtype))))
                      docs)]

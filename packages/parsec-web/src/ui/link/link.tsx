@@ -6,6 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 export type LinkProps = {
   href?: string;
   to?: string;
+  onClick?: () => void;
   children?: JSX.Element | string;
   underline?: boolean;
   subtle?: boolean;
@@ -15,7 +16,7 @@ export type LinkProps = {
 /**
  * Link component that can be used to navigate to a different page or to an external URL.
  */
-export const Link = ({ href, to, children, subtle = false, underline = true, ...linkProps }: LinkProps) => {
+export const Link = ({ href, onClick, to, children, subtle = false, underline = true, ...linkProps }: LinkProps) => {
   const extraProps = {
     ...(!underline || subtle ? { _hover: { ...linkProps._hover, textDecoration: 'none' } } : {}),
     ...(subtle ? { _focus: { ...linkProps._focus, boxShadow: 'unset' } } : {})
@@ -31,6 +32,13 @@ export const Link = ({ href, to, children, subtle = false, underline = true, ...
   if (to != undefined) {
     return (
       <ChakraLink as={RouterLink} to={to} {...linkProps} {...extraProps}>
+        {children}
+      </ChakraLink>
+    );
+  }
+  if (onClick != undefined) {
+    return (
+      <ChakraLink onClick={onClick} {...linkProps} {...extraProps}>
         {children}
       </ChakraLink>
     );
