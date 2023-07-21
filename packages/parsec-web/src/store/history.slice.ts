@@ -1,11 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
 
-import type { ExecutionResult, ExecutionResultDataSet, TokenType } from '../types/parsec';
-
-import type { StartListening } from './listener.middleware';
-import { parsecApi } from './parsec.slice';
+import type { ExecutionResult, ExecutionResultDataSet } from '../types/parsec';
 
 export type HistoryResult = {
   id: string;

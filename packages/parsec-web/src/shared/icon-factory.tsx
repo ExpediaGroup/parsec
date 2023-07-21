@@ -4,10 +4,11 @@ import type { IconType } from 'react-icons';
 import { AiFillEdit, AiFillHome, AiOutlineMenu } from 'react-icons/ai';
 import { BsCircleFill, BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { CgDockBottom, CgDockRight } from 'react-icons/cg';
-import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoSearch, GoX } from 'react-icons/go';
+import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoSearch, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
 import { ImBooks, ImHistory } from 'react-icons/im';
 import { MdAdd } from 'react-icons/md';
+import { SiGithub } from 'react-icons/si';
 import { VscListTree, VscPlay, VscSettingsGear } from 'react-icons/vsc';
 
 const icons = {
@@ -22,7 +23,7 @@ const icons = {
   dockRight: CgDockRight,
   edit: AiFillEdit,
   execute: VscPlay,
-  github: GoMarkGithub,
+  github: SiGithub,
   history: ImHistory,
   home: AiFillHome,
   lightMode: BsFillSunFill,

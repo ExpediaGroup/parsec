@@ -19,7 +19,7 @@ Launch a development server using [Vite](https://vitejs.dev/):
 npm start
 ```
 
-Then open http://localhost:3000 in a browser.
+Then open http://localhost:5173 in a browser.
 
 ## Production Build
 
