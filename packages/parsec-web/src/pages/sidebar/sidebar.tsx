@@ -5,6 +5,7 @@ import type { ResizableProps } from 're-resizable';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Routes, Route } from 'react-router-dom';
 
+import { HistoryPage } from '../history-page/history-page';
 import { QueriesPage } from '../queries-page/queries-page';
 import { ReferencePage } from '../reference-page/reference-page';
 import { SettingsPage } from '../settings-page/settings-page';
@@ -26,6 +27,7 @@ export const Sidebar = ({ ...flexProps }: SidebarProps) => {
       >
         <Routes>
           <Route path="/queries" element={<QueriesPage />} />
+          <Route path="/history" element={<HistoryPage />} />
           <Route path="/reference/*" element={<ReferencePage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>

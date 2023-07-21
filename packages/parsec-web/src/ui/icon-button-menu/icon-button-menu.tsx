@@ -1,12 +1,14 @@
 import { Box, IconButton, Icon, Menu, MenuButton, MenuList, Tooltip, forwardRef } from '@chakra-ui/react';
-import type { ReactNode, ElementType } from 'react';
+import type { ReactNode } from 'react';
+
+import { iconFactory } from '../../shared/icon-factory';
 
 export interface IconButtonMenuProps {
   'aria-label': string;
   bg?: string;
   color?: string;
   children: ReactNode;
-  icon: ElementType;
+  icon: string;
   fontSize?: string;
   size?: string;
   tooltip: string;
@@ -19,7 +21,7 @@ const TooltipIcon = forwardRef(
       <Box ref={ref} {...props}>
         <Tooltip label={tooltip} aria-label={label}>
           <IconButton
-            icon={<Icon as={icon} aria-label={label} />}
+            icon={<Icon as={iconFactory(icon)} aria-label={label} />}
             bg={bg}
             color={color}
             fontSize={fontSize}

@@ -45,7 +45,7 @@ export const ReferencePage = () => {
 
   useEffect(() => {
     const initializeMiniSearch = async () => {
-      const data = await executeQuery({ query: 'input docs' }).unwrap();
+      const data = await executeQuery({ query: 'input docs', _internal: true }).unwrap();
       minisearch.addAll(data.dataSets[0].data);
     };
 
@@ -91,7 +91,7 @@ export const ReferencePage = () => {
           return true;
         }
       });
-      console.log(results);
+
       filtered = results.map((result) => tokens.find((t: ReferenceToken) => t.key === result.id));
     }
 

@@ -16,7 +16,7 @@ import { Resizable } from 're-resizable';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { iconFactory, iconFactoryAs } from '../../shared/icon-factory';
+import { iconFactoryAs } from '../../shared/icon-factory';
 import { enableResizable } from '../../shared/resizable-utils';
 import type { QueryTabState } from '../../store/editor.slice';
 import { EditorLayout } from '../../store/editor.slice';
@@ -82,7 +82,7 @@ export const QueryTab = ({
             >
               Execute
             </Button>
-            <IconButtonMenu icon={iconFactory('menu')} aria-label="Additional options" tooltip="Additional options">
+            <IconButtonMenu icon="menu" aria-label="Additional options" tooltip="Additional options">
               <MenuItem onClick={() => validateQuery({ query })}>Validate</MenuItem>
             </IconButtonMenu>
 

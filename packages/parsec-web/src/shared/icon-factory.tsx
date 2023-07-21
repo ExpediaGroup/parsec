@@ -6,7 +6,7 @@ import { BsCircleFill, BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs
 import { CgDockBottom, CgDockRight } from 'react-icons/cg';
 import { GoChevronDown, GoChevronLeft, GoChevronRight, GoChevronUp, GoMarkGithub, GoSearch, GoX } from 'react-icons/go';
 import { GrStatusUnknown } from 'react-icons/gr';
-import { ImBooks } from 'react-icons/im';
+import { ImBooks, ImHistory } from 'react-icons/im';
 import { MdAdd } from 'react-icons/md';
 import { VscListTree, VscPlay, VscSettingsGear } from 'react-icons/vsc';
 
@@ -23,14 +23,15 @@ const icons = {
   edit: AiFillEdit,
   execute: VscPlay,
   github: GoMarkGithub,
+  history: ImHistory,
   home: AiFillHome,
   lightMode: BsFillSunFill,
   menu: AiOutlineMenu,
   plus: MdAdd,
+  queries: VscListTree,
   reference: ImBooks,
   search: GoSearch,
   settings: VscSettingsGear,
-  tree: VscListTree,
   unknown: GrStatusUnknown
 };
 

@@ -79,7 +79,9 @@ export const ActivityBar = () => {
 
         <ActivityButton to="/" activity={Activity.Home} icon="home" tooltip="Home" />
 
-        <ActivityButton to="/queries" activity={Activity.Queries} icon="tree" tooltip="Queries" />
+        <ActivityButton to="/queries" activity={Activity.Queries} icon="queries" tooltip="Queries" />
+
+        <ActivityButton to="/history" activity={Activity.History} icon="history" tooltip="History" />
 
         <ActivityButton to="/reference" activity={Activity.Reference} icon="reference" tooltip="Reference" />
       </Stack>
