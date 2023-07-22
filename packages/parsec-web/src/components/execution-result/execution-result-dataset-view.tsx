@@ -42,7 +42,7 @@ export const ExecutionResultDataSetView = ({ dataSet }: ExecutionResultDataSetVi
   );
 
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
-    columns,
+    columns: columns as any,
     data
   });
 

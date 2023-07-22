@@ -1,10 +1,8 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { editorSlice, TabType } from './editor.slice';
 import type { StartListening } from './listener.middleware';
-import type { RootState } from './store';
 
 export enum Activity {
   History = 'history',
@@ -74,9 +72,10 @@ export const addAppListeners = (startListening: StartListening) => {
           }
           break;
         }
-        default:
+        default: {
           listenerApi.dispatch(appSlice.actions.setSidebarOpen(true));
           listenerApi.dispatch(appSlice.actions.setCanOpenSidebar(true));
+        }
       }
     }
   });

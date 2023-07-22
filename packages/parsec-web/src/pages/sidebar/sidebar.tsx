@@ -1,7 +1,7 @@
 import type { FlexProps } from '@chakra-ui/react';
 import { Alert, AlertDescription, AlertIcon } from '@chakra-ui/react';
 import { Flex } from '@chakra-ui/react';
-import type { ResizableProps } from 're-resizable';
+import { Resizable, type ResizableProps } from 're-resizable';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Routes, Route } from 'react-router-dom';
 
@@ -10,11 +10,11 @@ import { QueriesPage } from '../queries-page/queries-page';
 import { ReferencePage } from '../reference-page/reference-page';
 import { SettingsPage } from '../settings-page/settings-page';
 
-export type SidebarProps = FlexProps & ResizableProps;
+export type SidebarProps = Omit<FlexProps, 'onResize'> & ResizableProps;
 
 export const Sidebar = ({ ...flexProps }: SidebarProps) => {
   return (
-    <Flex flexDirection="column" overflow="auto" align="stretch" {...flexProps}>
+    <Flex as={Resizable} flexDirection="column" overflow="auto" align="stretch" {...flexProps as any}>
       <ErrorBoundary
         FallbackComponent={({ error }) => {
           return (

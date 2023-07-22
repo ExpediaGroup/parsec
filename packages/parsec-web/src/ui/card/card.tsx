@@ -1,5 +1,5 @@
 import type { FlexProps } from '@chakra-ui/react';
-import { Card as ChakraCard, CardBody, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Card as ChakraCard } from '@chakra-ui/react';
 
 export type CardProps = FlexProps;
 

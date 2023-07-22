@@ -1,5 +1,4 @@
 import { Flex } from '@chakra-ui/react';
-import { Resizable } from 're-resizable';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ActivityBar } from '../../components/activity-bar/activity-bar';
@@ -24,7 +23,7 @@ export const MainPage = () => {
 
       {isSidebarOpen && (
         <Sidebar
-          as={Resizable}
+          
           defaultSize={{
             width: '20%',
             height: '100%'
