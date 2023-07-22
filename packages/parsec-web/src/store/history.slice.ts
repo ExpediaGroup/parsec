@@ -26,6 +26,12 @@ export const historySlice = createSlice({
   reducers: {
     addHistory(state, action: PayloadAction<HistoryResult>) {
       state.history.unshift(action.payload);
+
+      // Only keep the last 100 history items
+      if (state.history.length > 100) {
+        const removed = state.history.pop();
+        delete state.results[removed!.id];
+      }
     },
     updateHistory(state, action: PayloadAction<Required<HistoryResult>>) {
       const { id, executionResult, ...rest } = action.payload;
