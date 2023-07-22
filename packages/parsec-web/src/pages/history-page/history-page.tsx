@@ -28,9 +28,7 @@ export const HistoryPage = () => {
       <VStack spacing="0.5rem" align="stretch">
         {history.map((history) => (
           <Card key={history.id}>
-            <Text isTruncated noOfLines={1}>
-              {history.query}
-            </Text>
+            <Text noOfLines={1}>{history.query}</Text>
           </Card>
         ))}
       </VStack>

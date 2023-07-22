@@ -1,18 +1,17 @@
 import { extendTheme } from '@chakra-ui/react';
-import { createBreakpoints } from '@chakra-ui/theme-tools';
 
-const breakpoints = createBreakpoints({
-  sm: '30rem',
-  md: '48rem',
-  lg: '62rem',
-  xl: '75rem',
-  xxl: '100rem'
-});
+import { cardTheme } from './theme/card.theme';
 
 export const parsecTheme = extendTheme({
   useSystemColorMode: false,
   initialColorMode: 'dark',
-  breakpoints,
+  breakpoints: {
+    sm: '30rem',
+    md: '48rem',
+    lg: '62rem',
+    xl: '75rem',
+    xxl: '100rem'
+  },
   colors: {
     parsec: {
       blue: '#2de2e6',
@@ -137,6 +136,7 @@ export const parsecTheme = extendTheme({
         ghost: {}
       }
     },
+    Card: cardTheme,
     IconButton: {
       variants: {
         polar: {
