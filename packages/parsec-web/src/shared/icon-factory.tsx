@@ -9,7 +9,7 @@ import { GrStatusUnknown } from 'react-icons/gr';
 import { ImBooks, ImHistory } from 'react-icons/im';
 import { MdAdd } from 'react-icons/md';
 import { SiGithub } from 'react-icons/si';
-import { VscListTree, VscPlay, VscSettingsGear } from 'react-icons/vsc';
+import { VscCheck, VscError, VscListTree, VscPlay, VscSettingsGear } from 'react-icons/vsc';
 
 const icons = {
   chevronDown: GoChevronDown,
@@ -26,6 +26,7 @@ const icons = {
   github: SiGithub,
   history: ImHistory,
   home: AiFillHome,
+  invalid: VscError,
   lightMode: BsFillSunFill,
   menu: AiOutlineMenu,
   plus: MdAdd,
@@ -33,7 +34,8 @@ const icons = {
   reference: ImBooks,
   search: GoSearch,
   settings: VscSettingsGear,
-  unknown: GrStatusUnknown
+  unknown: GrStatusUnknown,
+  valid: VscCheck
 };
 
 export type IconFactory = typeof icons;

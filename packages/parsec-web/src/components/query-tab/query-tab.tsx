@@ -7,16 +7,17 @@ import {
   EditablePreview,
   Heading,
   HStack,
-  IconButton,
+  Icon,
   MenuItem,
   Stack,
+  Text,
   VStack
 } from '@chakra-ui/react';
 import { Resizable } from 're-resizable';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { iconFactoryAs } from '../../shared/icon-factory';
+import { iconFactory, iconFactoryAs } from '../../shared/icon-factory';
 import { enableResizable } from '../../shared/resizable-utils';
 import type { QueryTabState } from '../../store/editor.slice';
 import { EditorLayout } from '../../store/editor.slice';
@@ -26,6 +27,7 @@ import type { RootState } from '../../store/store';
 import { IconButtonMenu } from '../../ui/icon-button-menu/icon-button-menu';
 import { Editor } from '../editor/editor';
 import { ExecutionResult } from '../execution-result/execution-result';
+import { IconButton } from '../../ui/icon-button/icon-button';
 
 export type QueryTabProps = {
   tab: QueryTabState;
@@ -49,7 +51,7 @@ export const QueryTab = ({
   const { layout } = useSelector((state: RootState) => state.editor);
 
   const [executeQuery, { data: executeData, isLoading: isExecuteLoading }] = useExecuteQueryMutation();
-  const [validateQuery, { data: validateData, isLoading: isValidationLoading }] = useValidateQueryMutation();
+  const [validateQuery, { data: validateData, isLoading: isValidationLoading, reset: resetValidate }] = useValidateQueryMutation();
 
   // If either the execute or validate functions are being called, we're loading!
   const isLoading = isExecuteLoading || isValidationLoading;
@@ -64,6 +66,38 @@ export const QueryTab = ({
     }
   }, [isLoading, onRunningChange]);
 
+  const isValid = validateData === undefined || validateData?.errors.length === 0;
+
+  // If we have invalid validation data, use that, otherwise use execution data
+  const executionResult = isValid === false ? validateData : executeData;
+
+  const validateDOM = useMemo(() => {
+    if (!validateData) {
+      return null;
+    }
+
+    return (
+      <HStack color={isValid ? "green.500" : "red.500"} align="center">
+        {(isValid 
+          ? (<><Text>Query is valid</Text><Icon as={iconFactory('valid')}/></>)
+          : (<><Text>Query is invalid</Text><Icon as={iconFactory('invalid')}/></>))}
+      </HStack>
+    );
+    
+  }, [validateData])
+
+  const onExecute = () => {
+    resetValidate();
+    executeQuery({ query });
+  };
+
+  const onQueryChangeInternal = (query: string) => {
+    if (onQueryChange) {
+      onQueryChange(query);
+    }
+    resetValidate();
+  }
+
   return (
     <VStack align="stretch" overflow="hidden" {...flexProps}>
       <Stack direction={{ base: 'column', md: 'row' }} align="flex-start" justify="space-between" p="0.5rem">
@@ -73,12 +107,13 @@ export const QueryTab = ({
         </Editable>
 
         <HStack>
+          {validateDOM}
           <ButtonGroup>
             <Button
               variant="primary"
               leftIcon={iconFactoryAs('execute')}
               isLoading={isExecuteLoading}
-              onClick={() => executeQuery({ query })}
+              onClick={onExecute}
             >
               Execute
             </Button>
@@ -87,7 +122,7 @@ export const QueryTab = ({
             </IconButtonMenu>
 
             <IconButton
-              icon={iconFactoryAs(layout)}
+              icon={layout}
               onClick={toggleLayout}
               aria-label="Toggle layout"
               _hover={{
@@ -106,7 +141,7 @@ export const QueryTab = ({
         spacing={0}
         overflow="hidden"
       >
-        <Editor query={query} onQueryChange={onQueryChange} />
+        <Editor query={query} onQueryChange={onQueryChangeInternal} />
 
         {/* Using two different components to isolate resize state when switching */}
         {layout === EditorLayout.DockBottom && (
@@ -125,7 +160,7 @@ export const QueryTab = ({
             borderColor="parsec.pink"
             flexGrow={1}
             overflow="auto"
-            results={executeData}
+            results={executionResult}
           />
         )}
 
@@ -144,7 +179,7 @@ export const QueryTab = ({
             borderLeft="2px solid"
             borderColor="parsec.pink"
             overflow="auto"
-            results={executeData}
+            results={executionResult}
           />
         )}
       </Stack>

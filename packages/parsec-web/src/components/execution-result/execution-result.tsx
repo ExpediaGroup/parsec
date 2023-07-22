@@ -13,13 +13,13 @@ import {
 } from '@chakra-ui/react';
 import type { ResizableProps } from 're-resizable';
 
-import type { ExecutionResultDataSet } from '../../types/parsec';
+import type { ExecutionResult as ExecutionResultType, ExecutionResultDataSet } from '../../types/parsec';
 import { FancyCode } from '../../ui/fancy-code/fancy-code';
 
 import { ExecutionResultDataSetView } from './execution-result-dataset-view';
 
 export type ExecutionResultProps = {
-  results: any;
+  results: ExecutionResultType;
 } & FlexProps &
   ResizableProps;
 
@@ -42,7 +42,7 @@ export const ExecutionResult = ({ results, ...props }: ExecutionResultProps) => 
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
                 ))}
-                {results.dataSets.map((dataSet: ExecutionResultDataSet) => (
+                {results.dataSets?.map((dataSet: ExecutionResultDataSet) => (
                   <ExecutionResultDataSetView key={dataSet.name} dataSet={dataSet} />
                 ))}
               </VStack>
